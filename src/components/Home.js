@@ -17,7 +17,7 @@ function Home() {
   
   return (
       <>
-
+        <div className='container-fluid'>
             <header>
                 <h1>Foodi</h1>
             </header>
@@ -25,13 +25,13 @@ function Home() {
                    
         <div>        
             {recipes && recipes.map((doc) => 
-                <Recipes key={doc.id} name={doc.name} keywords={doc.keywords} image={doc.image}
-                    serves={doc.serves} calories={doc.calories} ingredients={doc.ingredients}
-                    instructions={doc.instructions} source={doc.source} />
+                <Recipes doc={doc} />
+
+                
             )}
         </div>    
 
-
+        </div>
 
       </>
   )

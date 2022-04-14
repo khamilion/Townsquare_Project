@@ -1,201 +1,26 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing:border-box;
-  font-family: ui-rounded, 'Varela Round',  Verdana, Geneva, Tahoma, sans-serif;
-}
-
-html, body, #root{
-  height: 100%
-}
-
-.App {
-  height: 100%;
-  width:100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  overflow-y: auto;
+.myform{
+  width:500px;
   
 }
 
-header{
-  margin-top: 20px;
-  margin-bottom: 0;
-  padding: 5px;
-  height: 30px;
-  color: white;
-}
-h3{
-  font-weight: 100;
-}
 .login{
-  display: block;
-  position: relative;
-  text-align: center;
-  background-color: white;
-  border: white solid 2px;
-  height: fit-content;
-  height: -moz-fit-content;
-  width: 450px;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 30px;
-  box-shadow: 0px 0px 10px black;
-}
-form.login p{
-  margin: 10px;
+  background-image: url(./sample2.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.blog-container{
-  display: block;
-  position: relative;
-  text-align: center;
-  background-color: white;
-  border: white solid 2px;
-  height: fit-content;
-  height: -moz-fit-content;
-  width: 60%;
-  font-size: 30px;
-  box-shadow: 0px 0px 10px black;
-  margin-top: 45px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 90%;
+.labelBG{
   
 }
 
-ul li{
-  font-size: 25px;
-  padding: 15px;
-  width: 90%;
+.hdrSize{
+  font-size: 100px;
+  font-family: 'Tangerine';
+  letter-spacing: 1rem;
 }
 
-.show-blog-container{
-  display: block;
-  position: relative;
-  text-align: center;
-  background-color: none;
-  height: 90%;
-  height: -moz-fit-content;
-  width: 90%;
-  font-size: 25px;
-  margin-top: 45px;
-  margin-bottom: 20px;
-  margin: auto;
-}
-
-.show-blog-container .form-group{
-  display: block;
-  border: white solid 5px;
-  background-color: white;
-  border-radius: 20px;
-  box-shadow: 0px 0px 10px lightgray;
-  width: 90%;
-  height: 250px;
-  margin: auto;
-  padding-top: 10px;
-  margin-top: 30px;
-  text-align: center;
-  font-size: 30px;
-  overflow:auto;
-}
-
-
-.blog-inner{
-  margin-top: 5px;
-  padding-top:5px;
-  width: 100%;
-}
-
-form.login .form-group{
-  display: block;
-  width: 90%;
-  height: 100px;
-  margin: auto;
-  padding-top: 10px;
-  margin-top: 30px;
-  text-align: left;
-  font-size: 30px;
-}
-
-form.blog-container .form-group{
-  display: block;
-  width: 90%;
-  height: 100px;
-  margin: auto;
-  margin-top: 15px;
-  text-align: left;
-  font-size: 30px;
-}
-
-
-
-.form-inner{
-  margin-top: 20px;
-  width: 70%;
-  margin: auto;
-
-}
-
-
-form.login input{
-  display: block;
-  width: 100%;
-  height: 60px;
-  padding: 10px;
-  background-color: rgb(236, 236, 236);
-  border: none;
-  border-radius: 4px;
-  transition: 0.4s;
-  font-size: 25px;
-}
-
-form.blog-container input{
-  display: block;
-  width: 100%;
-  height: 30px;
-  padding: 5px;
-  background-color: rgb(236, 236, 236);
-  border: none;
-  border-radius: 4px;
-  transition: 0.4s;
-  font-size: 25px;
-}
-
-textarea{
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: rgb(236, 236, 236);
-  border: none;
-  border-radius: 4px;
-  transition: 0.4s;
-}
-
-button{
-  width: 50%;
-  padding: 5px 10px;
-  background-color: orange;
-  margin-bottom: 25px;
-  margin-top: 25px;
-  border: orange solid 5px;
-  border-radius: 4px;
-  font-size: 20px;
-  color: white;
-}
-
-
-label{
-  color:gray;
+.space{
+  letter-spacing: .2rem;
+  font-family: 'Tangerine';
+  font-size: 40px;
 }
