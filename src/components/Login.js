@@ -71,13 +71,13 @@ function Login() {
                     <Form.Group className="mb-5 " controlId="formBasicEmail">
 
                         <Form.Label className='fw-light' column="lg"><span className='space'>Email address</span></Form.Label>
-                        <Form.Control className=' bg-transparent labelBG bg-dark text-light border-top border-1' size="lg" type="email" placeholder="Enter email" />
+                        <Form.Control className=' labelBG bg-dark text-white border-top border-1' size="lg" type="email" placeholder="Enter email" />
 
                     </Form.Group>
 
                     <Form.Group className="mb-5"  controlId="formBasicPassword">
                         <Form.Label className='fw-light' column="lg"><span className='space'>Password</span></Form.Label>
-                        <Form.Control className='bg-transparent labelBG bg-dark text-light border-light border-1'  size="lg" type="password" placeholder="Password" />
+                        <Form.Control className=' labelBG bg-dark text-white border-light border-1'  size="lg" type="password" placeholder="Password" />
                     </Form.Group>
 
                     <div className='d-flex justify-content-start mt-4'>

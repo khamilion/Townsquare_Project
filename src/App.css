@@ -10,17 +10,18 @@
 }
 
 .labelBG{
-  
+  opacity: .75;
 }
 
 .hdrSize{
   font-size: 100px;
-  font-family: 'Tangerine';
+  font-family: 'Satisfy', cursive;
   letter-spacing: 1rem;
 }
 
 .space{
   letter-spacing: .2rem;
-  font-family: 'Tangerine';
-  font-size: 40px;
+  font-family: 'Satisfy', cursive;
+  font-size: 30px;
+  opacity: 1;
 }
