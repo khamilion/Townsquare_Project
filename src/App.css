@@ -3,7 +3,7 @@
   
 }
 
-.login{
+.login, .signup{
   background-image: url(./sample2.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -15,13 +15,19 @@
 
 .hdrSize{
   font-size: 100px;
-  font-family: 'Satisfy', cursive;
+  font-family: 'Satisfy', 'sans-serif',cursive;
   letter-spacing: 1rem;
 }
 
 .space{
   letter-spacing: .2rem;
-  font-family: 'Satisfy', cursive;
+  font-family: 'Satisfy', 'sans-serif', cursive;
   font-size: 30px;
   opacity: 1;
+}
+
+.formHdr{
+  letter-spacing: .2rem;
+  font-family: 'Satisfy', 'sans-serif', cursive;
+  font-size: 40px;
 }

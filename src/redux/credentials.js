@@ -41,7 +41,7 @@ const selectPosts = state => state.credential
 
 export const selectPostsInfo = createSelector([selectPosts], ({fname, lname, email, title, content, pwd}) => {
   return {
-    fname, lname, email, title, content,pwd
+    fname, lname, email, title, content, pwd
   }
 })
 // Export the action to be used by the components in the application

@@ -26,8 +26,6 @@ function Home() {
         <div>        
             {recipes && recipes.map((doc) => 
                 <Recipes doc={doc} />
-
-                
             )}
         </div>    
 
