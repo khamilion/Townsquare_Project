@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setFName, setLName, setEmail, selectPostsInfo, setPwd} from '../../redux/credentials'
+import {setEmail, setFName, setLName, setPwd, userInfo} from '../../redux/userSlice'
 import{ useNavigate, Link } from 'react-router-dom'
 import { debounce } from 'lodash'
 import Form from 'react-bootstrap/Form'
@@ -9,6 +9,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+  //import the authentication components
+  //import { auth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, signInWithEmailAndPassword, 
+  //  signOut } from '../../firebaseAuth';
 
 function SignUp() {
 
@@ -16,8 +19,14 @@ function SignUp() {
     //useSelector specifies which variable to read and from which particular reducer
     //useSelector accepts a single function, which we call a selector function. 
     //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
-    const {fname, lname, email, pwd} = useSelector(selectPostsInfo)
+    const {fname, lname, email, pwd} = useSelector(userInfo)
     
+    //use state constants for the form inputs
+   /* const [email, setEmail] = useState('');
+    const [pwd, setPwd] = useState('');
+    const [fname, setFName] = useState('');
+    const [lname, setLName] = useState('');*/
+    //const [profilePic, setProfilePic] = useState('');
 
     const navigate = useNavigate();
 
@@ -28,6 +37,33 @@ function SignUp() {
 
     const submitForm = (e) =>{
         e.preventDefault();
+/*
+        // Create a new user with Firebase
+       createUserWithEmailAndPassword(auth, email, pwd)
+       .then((userAuth) => {
+       // Update the newly created user with a display name and a picture
+         updateProfile(userAuth.user, {
+           displayName: (fname + lname),
+         })
+           .then(
+             // Dispatch the user information for persistence in the redux state
+             dispatch(
+               login({
+                 email: userAuth.user.email,
+                 uid: userAuth.user.uid,
+                 displayName: (fname + lname),
+               })
+             )
+           )
+           .catch((error) => {
+             console.log('user not updated\n' + error);
+           });
+       })
+       .catch((err) => {
+         alert(err);
+       });*/
+
+
             fetch('/SignUp', {
                 method:"POST",
                 headers:{
@@ -69,7 +105,7 @@ function SignUp() {
 
     <div className='d-flex justify-content-sm-center justify-content-lg-end  align-items-start vh-100 pe-3 pt-5'>
 
-        <Form className='myform text-white mt-5' onSubmit={submitForm}>
+        <Form className='login-form myform text-white mt-5' onSubmit={submitForm}>
 
                     <div className='d-flex justify-content-center'>
                         <h3 className='space text-dark d-inline-block formHdr bg-warning rounded-pill p-3'>Sign Up</h3>

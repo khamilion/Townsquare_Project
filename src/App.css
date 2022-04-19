@@ -2,6 +2,15 @@
   width:500px;
   
 }
+@media screen and (max-width:990px){
+  .login-form{
+    background: rgba(12, 14, 41, .880);
+    padding: 20px;
+    border: solid black 5px;
+    border-radius: 15px;
+  }
+}
+
 
 .login, .signup{
   background-image: url(./sample2.png);
