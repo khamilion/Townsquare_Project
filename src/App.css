@@ -11,11 +11,14 @@
   }
 }
 
-
 .login, .signup{
   background-image: url(./sample2.png);
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.homeBG{
+  background-color: bisque;
 }
 
 .labelBG{
@@ -27,6 +30,15 @@
   font-family: 'Satisfy', 'sans-serif',cursive;
   letter-spacing: 1rem;
 }
+
+.homehdr{
+  background-color: rgb(12, 14, 41);
+  font-family: 'Satisfy', 'sans-serif',cursive;
+}
+.homehdrInner{
+  font-family: 'Satisfy', 'sans-serif',cursive;
+}
+
 
 .space{
   letter-spacing: .2rem;

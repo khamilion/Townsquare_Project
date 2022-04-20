@@ -19,11 +19,11 @@ function Login() {
     //useSelector specifies which variable to read and from which particular reducer
     //useSelector accepts a single function, which we call a selector function. 
     //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
-    const {email, pwd} = useSelector(userInfo)
+    //const {email, pwd} = useSelector(userInfo)
 
     //use state constants for the form inputs
-    //const [email, setEmail] = useState('');
-    //const [pwd, setPwd] = useState('');
+    const [email, setEmail] = useState('');
+    const [pwd, setPwd] = useState('');
     
 
     const navigate = useNavigate();
@@ -107,12 +107,12 @@ function Login() {
 
                     <Form.Group className="mb-5 " controlId="formBasicEmail">
                         <Form.Label className='fw-light' column="lg"><span className='space'>Email address</span></Form.Label>
-                        <Form.Control className=' labelBG bg-dark text-light border-light border-1' size="lg" type="email" placeholder="Enter email" onChange={(e) => {dispatch(setEmail(e.target.value))}}/>
+                        <Form.Control className=' labelBG bg-dark text-light border-light border-1' size="lg" type="email" placeholder="Enter email" onChange={(e) => {setEmail(e.target.value)}}/>
                     </Form.Group>
 
                     <Form.Group className="mb-5"  controlId="formBasicPassword">
                         <Form.Label className='fw-light' column="lg"><span className='space'>Password</span></Form.Label>
-                        <Form.Control className=' labelBG form_color form-control bg-dark text-light border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {dispatch(setPwd(e.target.value))}}/>
+                        <Form.Control className=' labelBG form_color form-control bg-dark text-light border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {setPwd(e.target.value)}}/>
                     </Form.Group>
 
                     <div className='d-flex justify-content-between mt-4'>

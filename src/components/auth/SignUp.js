@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col'
 
   //import the authentication components
   //import { auth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, signInWithEmailAndPassword, 
-  //  signOut } from '../../firebaseAuth';
+    //signOut } from '../../firebaseAuth';
 
 function SignUp() {
 
@@ -19,13 +19,13 @@ function SignUp() {
     //useSelector specifies which variable to read and from which particular reducer
     //useSelector accepts a single function, which we call a selector function. 
     //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
-    const {fname, lname, email, pwd} = useSelector(userInfo)
+    //const {fname, lname, email, pwd} = useSelector(userInfo)
     
     //use state constants for the form inputs
-   /* const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [fname, setFName] = useState('');
-    const [lname, setLName] = useState('');*/
+    const [lname, setLName] = useState('');
     //const [profilePic, setProfilePic] = useState('');
 
     const navigate = useNavigate();
@@ -114,23 +114,23 @@ function SignUp() {
                   <Row className="mb-3">
                       <Form.Group as={Col} controlId="formFName">
                           <Form.Label className='fw-light' column="lg"><span className='space'>First Name</span></Form.Label>
-                          <Form.Control className=' labelBG bg-dark text-white' size="lg" placeholder="John" onChange={(e) => {dispatch(setFName(e.target.value))}}/>
+                          <Form.Control className=' labelBG bg-dark text-white' size="lg" placeholder="John" onChange={(e) => {setFName(e.target.value)}}/>
                       </Form.Group>
 
                       <Form.Group as={Col} controlId="formLName">
                           <Form.Label className='fw-light' column="lg"><span className='space'>Last Name</span></Form.Label>
-                          <Form.Control className=' labelBG bg-dark text-white' size="lg" placeholder="Doe" onChange={(e) => {dispatch(setLName(e.target.value))}}/>
+                          <Form.Control className=' labelBG bg-dark text-white' size="lg" placeholder="Doe" onChange={(e) => {setLName(e.target.value)}}/>
                       </Form.Group>
                   </Row>
 
             <Form.Group className="mb-3 " controlId="formBasicEmail">
                 <Form.Label className='fw-light' column="lg"><span className='space'>Email address</span></Form.Label>
-                <Form.Control className=' labelBG bg-dark text-white border-top border-1' size="lg" type="email" placeholder="johnd@email.com" onChange={(e) => {dispatch(setEmail(e.target.value))}}/>
+                <Form.Control className=' labelBG bg-dark text-white border-top border-1' size="lg" type="email" placeholder="johnd@email.com" onChange={(e) => {setEmail(e.target.value)}}/>
             </Form.Group>
 
             <Form.Group className="mb-3"  controlId="formBasicPassword">
                 <Form.Label className='fw-light' column="lg"><span className='space'>Password</span></Form.Label>
-                <Form.Control className=' labelBG bg-dark text-white border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {dispatch(setPwd(e.target.value))}}/>
+                <Form.Control className=' labelBG bg-dark text-white border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {setPwd(e.target.value)}}/>
             </Form.Group>
 
 
