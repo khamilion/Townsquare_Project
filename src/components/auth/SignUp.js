@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {setEmail, setFName, setLName, setPwd, userInfo} from '../../redux/userSlice'
+//import {setEmail, setFName, setLName, setPwd, userInfo} from '../../redux/userSlice'
+import {login, logout, userInfo} from '../../redux/userSlice'
 import{ useNavigate, Link } from 'react-router-dom'
 import { debounce } from 'lodash'
 import Form from 'react-bootstrap/Form'
@@ -9,23 +10,20 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-  //import the authentication components
-  //import { auth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, signInWithEmailAndPassword, 
-    //signOut } from '../../firebaseAuth';
-
 function SignUp() {
 
         //get fname, lname, email from redux store by using useSelector react hook
     //useSelector specifies which variable to read and from which particular reducer
     //useSelector accepts a single function, which we call a selector function. 
     //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
-    //const {fname, lname, email, pwd} = useSelector(userInfo)
+    const user = useSelector(userInfo)
     
     //use state constants for the form inputs
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
-    const [fname, setFName] = useState('');
     const [lname, setLName] = useState('');
+    const [fname, setFName] = useState('');
+    const[user_data, setData] = useState('')
     //const [profilePic, setProfilePic] = useState('');
 
     const navigate = useNavigate();
@@ -33,54 +31,88 @@ function SignUp() {
     //set up the dispatch hook in order to call any action from any reducer
     const dispatch = useDispatch()
 
+    //Form state hooks
+    const [ form, setForm ] = useState({}) //holds key value pair for each form field
+    const [ errors, setErrors ] = useState({}) //holds key value pair for each error
     
 
     const submitForm = (e) =>{
         e.preventDefault();
-/*
-        // Create a new user with Firebase
-       createUserWithEmailAndPassword(auth, email, pwd)
-       .then((userAuth) => {
-       // Update the newly created user with a display name and a picture
-         updateProfile(userAuth.user, {
-           displayName: (fname + lname),
-         })
-           .then(
-             // Dispatch the user information for persistence in the redux state
-             dispatch(
-               login({
-                 email: userAuth.user.email,
-                 uid: userAuth.user.uid,
-                 displayName: (fname + lname),
-               })
-             )
-           )
-           .catch((error) => {
-             console.log('user not updated\n' + error);
-           });
-       })
-       .catch((err) => {
-         alert(err);
-       });*/
 
+          // get new errors
+          const newErrors = findFormErrors()
 
+          // Check for any new errors. If there are errors set the errors value
+          if ( Object.keys(newErrors).length > 0 ) {
+            setErrors(newErrors)
+          } 
+          else{
             fetch('/SignUp', {
-                method:"POST",
-                headers:{
-                'Content-Type': 'application/json'
-              }, 
-              body: JSON.stringify({email, pwd, fname,lname})
-            })
-              .then(response => response.json())
-              .then(data => console.log(data)).catch((error) => {
-                console.error(error);
-              });
-              navigate('/Home')
+              method:"POST",
+              headers:{
+              'Content-Type': 'application/json'
+            }, 
+            body: JSON.stringify({email, pwd, fname,lname})
+          })
+            .then(response => response.json())
+            .then(data => {setData(data)})
+            .catch((error) => {
+              console.error(error);
+            });
+
+            //saveToRedux()
+
+            navigate('/Home')
+          }
+
+            
     }
+
+    //function to update each field onchange. Also checks errors for each field
+    const setField = (field, value) => {
+      //Update the state for current values
+      setForm({...form, [field]: value})
+
+      // Check and see if errors exist, and remove them from the error object
+      if ( !!errors[field] ) setErrors({
+        ...errors,
+        [field]: null
+      })
+    }
+
 
     //var handleThrottledInput = debounce(submitForm, 100)
 
-   
+    //Saves user information to redux store
+    function saveToRedux(){
+      dispatch(login({email: user_data.email,
+                      uid: user_data.uid,
+                      displayName: user_data.displayName}))
+      console.log(user)
+    }
+
+    //Checks the form for errors 
+    const findFormErrors = () => {
+      //deconstruct the form object
+      const { fname, lname, email, pwd } = form
+      const newErrors = {}
+
+      // first name errors
+      if ( !fname || fname === '' ) newErrors.fname = 'cannot be blank!'
+
+      // last name errors
+      if ( !lname || lname === '' ) newErrors.lname = 'cannot be blank!'
+
+      // email errors
+      if ( !email || email === '' ) newErrors.email = 'cannot be blank!'
+      
+      // password errors
+      if ( !pwd || pwd === '' ) newErrors.pwd = 'cannot be blank!'
+      else if ( pwd.length < 6 ) newErrors.pwd = 'password is too short!'
+  
+      return newErrors
+  }
+
 
   return (
    
@@ -114,23 +146,27 @@ function SignUp() {
                   <Row className="mb-3">
                       <Form.Group as={Col} controlId="formFName">
                           <Form.Label className='fw-light' column="lg"><span className='space'>First Name</span></Form.Label>
-                          <Form.Control className=' labelBG bg-dark text-white' size="lg" placeholder="John" onChange={(e) => {setFName(e.target.value)}}/>
+                          <Form.Control isInvalid={ !!errors.fname } className=' labelBG bg-dark text-white' size="lg" placeholder="John" onChange={(e) => {setField('fname',e.target.value)}}/>
+                          <Form.Control.Feedback type='invalid'>{ errors.fname }</Form.Control.Feedback>
                       </Form.Group>
 
                       <Form.Group as={Col} controlId="formLName">
                           <Form.Label className='fw-light' column="lg"><span className='space'>Last Name</span></Form.Label>
-                          <Form.Control className=' labelBG bg-dark text-white' size="lg" placeholder="Doe" onChange={(e) => {setLName(e.target.value)}}/>
+                          <Form.Control isInvalid={ !!errors.lname }  className=' labelBG bg-dark text-white' size="lg" placeholder="Doe" onChange={(e) => {setField('lname',e.target.value)}}/>
+                          <Form.Control.Feedback type='invalid'>{ errors.lname }</Form.Control.Feedback>
                       </Form.Group>
                   </Row>
 
             <Form.Group className="mb-3 " controlId="formBasicEmail">
                 <Form.Label className='fw-light' column="lg"><span className='space'>Email address</span></Form.Label>
-                <Form.Control className=' labelBG bg-dark text-white border-top border-1' size="lg" type="email" placeholder="johnd@email.com" onChange={(e) => {setEmail(e.target.value)}}/>
+                <Form.Control isInvalid={ !!errors.email } className=' labelBG bg-dark text-white border-top border-1' size="lg" type="email" placeholder="johnd@email.com" onChange={(e) => {setField('email',e.target.value)}}/>
+                <Form.Control.Feedback type='invalid'>{ errors.email }</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3"  controlId="formBasicPassword">
                 <Form.Label className='fw-light' column="lg"><span className='space'>Password</span></Form.Label>
-                <Form.Control className=' labelBG bg-dark text-white border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {setPwd(e.target.value)}}/>
+                <Form.Control isInvalid={ !!errors.pwd } className=' labelBG bg-dark text-white border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {setField('pwd',e.target.value)}}/>
+                <Form.Control.Feedback type='invalid'>{ errors.pwd }</Form.Control.Feedback>
             </Form.Group>
 
 

@@ -8,12 +8,12 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Feedback from 'react-bootstrap/Feedback'
 
-  //import the authentication components
-//import { auth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, signInWithEmailAndPassword, 
-//    signOut } from '../../firebaseAuth';
 
 function Login() {
+    //holds the boolean value of where the form is complete or not
+    const [validated, setValidated] = useState(false)
 
     //get fname, lname, email from redux store by using useSelector react hook
     //useSelector specifies which variable to read and from which particular reducer
@@ -34,27 +34,20 @@ function Login() {
     
 
     const submitForm = (e) =>{
+        const form = e.currentTarget;
+        //Check the validity to ensure the fields are filled
+        if (form.checkValidity() === false) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        else{
+
+        
+
+        setValidated(true)
+    
         e.preventDefault();
 
-/*
-        //Sign in existing user with Firebase
-        signInWithEmailAndPassword(auth, email, pwd)// returns an auth object after successful authentication
-        // userAuth.user contains all our user details
-        .then((userAuth) => {
-        // store the user's information in the redux state
-            dispatch(
-            login({
-                email: userAuth.user.email,
-                uid: userAuth.user.uid,
-                displayName: userAuth.user.displayName,
-                //photoUrl: userAuth.user.photoURL,
-            })
-            );
-        })
-        // display the error if any
-        .catch((err) => {
-            alert(err);
-        });*/
 
             fetch('/Login', {
                 method:"POST",
@@ -67,7 +60,7 @@ function Login() {
               .then(data => console.log(data)).catch((error) => {
                 console.error( error);
               });
-              navigate('/Home')
+              navigate('/Home')}
     }
 
     //var handleThrottledInput = debounce(submitForm, 100)
@@ -98,7 +91,7 @@ function Login() {
 
             <div className=' d-flex justify-content-sm-center justify-content-lg-end  align-items-start vh-100 pe-5 pt-5'>
                 
-                <Form className='login-form myform text-white mt-5' onSubmit={submitForm}>
+                <Form noValidate validated={validated} className='login-form myform text-white mt-5' onSubmit={submitForm}>
 
                     <div className='d-flex justify-content-center'>
                         <h3 className='space text-dark d-inline-block formHdr bg-warning rounded-pill p-3'>Login</h3>
@@ -107,12 +100,14 @@ function Login() {
 
                     <Form.Group className="mb-5 " controlId="formBasicEmail">
                         <Form.Label className='fw-light' column="lg"><span className='space'>Email address</span></Form.Label>
-                        <Form.Control className=' labelBG bg-dark text-light border-light border-1' size="lg" type="email" placeholder="Enter email" onChange={(e) => {setEmail(e.target.value)}}/>
+                        <Form.Control required className=' labelBG bg-dark text-light border-light border-1' size="lg" type="email" placeholder="Enter email" onChange={(e) => {setEmail(e.target.value)}}/>
+                        <Form.Control.Feedback type="invalid"> Enter your email </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-5"  controlId="formBasicPassword">
                         <Form.Label className='fw-light' column="lg"><span className='space'>Password</span></Form.Label>
-                        <Form.Control className=' labelBG form_color form-control bg-dark text-light border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {setPwd(e.target.value)}}/>
+                        <Form.Control required className=' labelBG form_color form-control bg-dark text-light border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {setPwd(e.target.value)}}/>
+                        <Form.Control.Feedback type="invalid">Enter Password</Form.Control.Feedback>
                     </Form.Group>
 
                     <div className='d-flex justify-content-between mt-4'>
