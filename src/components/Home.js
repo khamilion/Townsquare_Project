@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Recipes from './Recipes'
 import { useDispatch, useSelector } from 'react-redux'
-import { userInfo } from '../redux/userSlice';
+import { selectUserInfo } from '../redux/userSlice';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -22,7 +22,7 @@ function Home() {
     }, []);
 
     //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
-    const {user} = useSelector(userInfo)
+    const {user} = useSelector(selectUserInfo)
 
     return (
         <>
