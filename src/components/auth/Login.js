@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {setEmail, setPwd, userInfo} from '../../redux/userSlice'
+
+import {setEmail, setPassword, selectUserInfo, login} from '../../redux/userSlice'
 import{ useNavigate, Link } from 'react-router-dom'
+
 import { debounce } from 'lodash'
+
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -12,19 +15,16 @@ import Feedback from 'react-bootstrap/Feedback'
 
 
 function Login() {
-    //holds the boolean value of where the form is complete or not
-    const [validated, setValidated] = useState(false)
 
     //get fname, lname, email from redux store by using useSelector react hook
     //useSelector specifies which variable to read and from which particular reducer
     //useSelector accepts a single function, which we call a selector function. 
     //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
-    //const {email, pwd} = useSelector(userInfo)
-
-    //use state constants for the form inputs
-    const [email, setEmail] = useState('');
-    const [pwd, setPwd] = useState('');
+    const { user, isUserLoading, userCredentials } = useSelector(selectUserInfo)
     
+    //Form state hooks
+    const [form, setForm] = useState({}) //holds key value pair for each form field
+    const [errors, setErrors] = useState({}) //holds key value pair for each error
 
     const navigate = useNavigate();
 
@@ -34,40 +34,63 @@ function Login() {
     
 
     const submitForm = (e) =>{
-        const form = e.currentTarget;
-        //Check the validity to ensure the fields are filled
-        if (form.checkValidity() === false) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-        else{
-
-        
-
-        setValidated(true)
-    
         e.preventDefault();
 
+        // get new errors
+        const newErrors = findFormErrors()
 
-            fetch('/Login', {
-                method:"POST",
-                headers:{
-                'Content-Type': 'application/json'
-              }, 
-              body: JSON.stringify({email, pwd})
-            })
-              .then(response => response.json())
-              .then(data => console.log(data)).catch((error) => {
-                console.error( error);
-              });
-              navigate('/Home')}
+        //Check the validity to ensure the fields are filled
+        if (Object.keys(newErrors).length > 0){
+            setErrors(newErrors)
+        }
+        //Otherwise fetch the sign-up endpoint through redux thunk
+        else{   
+        e.preventDefault();
+
+        //dispatch the action to sign up a new user with validated credentials
+        dispatch(login({'email': userCredentials.email, 'password': userCredentials.password}))
+
+        navigate('/Home')
+        }
     }
 
     //var handleThrottledInput = debounce(submitForm, 100)
 
-   
-  
+    //function to update each field onchange. Also checks errors for each field
+    const setField = (field, value) => {
+        //Update the state for current values
+        setForm({ ...form, [field]: value })
 
+        //save to user credentials redux store
+        if (field === 'email'){
+        dispatch(setEmail(value))
+        }
+        if (field === 'pwd'){
+        dispatch(setPassword(value))
+        }
+
+        // Check and see if errors exist, and remove them from the error object
+        if (!!errors[field]) setErrors({
+        ...errors,
+        [field]: null
+        })
+    }
+  
+ //Checks the form for errors 
+ const findFormErrors = () => {
+    //deconstruct the form object
+    const {email, pwd } = form
+    const newErrors = {}
+
+    // email errors
+    if (!email || email === '') newErrors.email = 'cannot be blank!'
+
+    // password errors
+    if (!pwd || pwd === '') newErrors.pwd = 'cannot be blank!'
+    else if (pwd.length < 6) newErrors.pwd = 'password is too short!'
+
+    return newErrors
+  }
 
   return (
       <>
@@ -91,7 +114,7 @@ function Login() {
 
             <div className=' d-flex justify-content-sm-center justify-content-lg-end  align-items-start vh-100 pe-5 pt-5'>
                 
-                <Form noValidate validated={validated} className='login-form myform text-white mt-5' onSubmit={submitForm}>
+                <Form className='login-form myform text-white mt-5' onSubmit={submitForm}>
 
                     <div className='d-flex justify-content-center'>
                         <h3 className='space text-dark d-inline-block formHdr bg-warning rounded-pill p-3'>Login</h3>
@@ -100,14 +123,14 @@ function Login() {
 
                     <Form.Group className="mb-5 " controlId="formBasicEmail">
                         <Form.Label className='fw-light' column="lg"><span className='space'>Email address</span></Form.Label>
-                        <Form.Control required className=' labelBG bg-dark text-light border-light border-1' size="lg" type="email" placeholder="Enter email" onChange={(e) => {setEmail(e.target.value)}}/>
-                        <Form.Control.Feedback type="invalid"> Enter your email </Form.Control.Feedback>
+                        <Form.Control isInvalid={!!errors.email} className=' labelBG bg-dark text-light border-light border-1' size="lg" type="email" placeholder="Enter email" onChange={(e) => {setField('email', e.target.value)}}/>
+                        <Form.Control.Feedback type="invalid"> {errors.email} </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-5"  controlId="formBasicPassword">
                         <Form.Label className='fw-light' column="lg"><span className='space'>Password</span></Form.Label>
-                        <Form.Control required className=' labelBG form_color form-control bg-dark text-light border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {setPwd(e.target.value)}}/>
-                        <Form.Control.Feedback type="invalid">Enter Password</Form.Control.Feedback>
+                        <Form.Control isInvalid={!!errors.pwd}  className=' labelBG form_color form-control bg-dark text-light border-light border-1'  size="lg" type="password" placeholder="Password" onChange={(e) => {setField('pwd', e.target.value)}}/>
+                        <Form.Control.Feedback type="invalid">{errors.pwd}</Form.Control.Feedback>
                     </Form.Group>
 
                     <div className='d-flex justify-content-between mt-4'>
@@ -116,7 +139,7 @@ function Login() {
                         </Button>
                         
                         <nav>
-                            <Link to='/SignUp' className='text-light'> Don't have an account? Sign up.</Link>
+                            <Link to='/sign-up' className='text-light'> Don't have an account? Sign up.</Link>
                         </nav>
                     </div>
 

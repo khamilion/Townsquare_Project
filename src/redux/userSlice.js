@@ -20,23 +20,43 @@ export const getUserDetails = createAsyncThunk(
 export const signUp = createAsyncThunk(
   'user/sign-up',
     async (request) => {
-      try {
-        console.log(`sign up thunk: ${request}`);
+        console.log(`sign up thunk: ${JSON.stringify(request)}`);
 
         //Call the sign-up endpoint
-        const res = await fetch('/sign-up', {
+        const response = await fetch('/sign-up', {
             headers: { 'Content-Type': 'application/json' },
             method: "POST",
             body: JSON.stringify(request)
         })
-        .then(
+        let res = await response.json()
+        console.log(res)
+        return res
+        /*
+        .then((data) =>  { const user_data = data.json()
+                            console.log(user_data) 
+                            return user_data}) */
+  }
+
+);
+
+
+export const login = createAsyncThunk(
+  'user/login',
+    async (request) => {
+      try {
+        console.log(request);
+        const res = await fetch('/login', {
+            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            body: JSON.stringify(request)
+        }).then(
           (data) =>  {
             console.log(data.json())
+            return data.json()
           }
         )
       } catch(err) {
-        console.log(err)
-        return 'There was an error processing the request.' 
+        return 'There was an error processing the request.'
       }
   }
 
@@ -44,12 +64,7 @@ export const signUp = createAsyncThunk(
 
 //Initial state
 const initialState = {
-  user: {
-    user_id: '',
-    email: '',
-    first_name: '',
-    last_name: ''
-  },
+  user: null,
   userCredentials: {
     email: '',
     password: '',
@@ -80,20 +95,7 @@ export const userSlice = createSlice({
     setLast: (state, action) => {
       state.userCredentials.last = action.payload
     }
-    /*
-    setFName: (state, action) => {
-      state.fname = action.payload
-      
-    },
-    setLName: (state, action) => {
-        state.lname = action.payload
-      },
-    setEmail: (state, action) => {
-        state.email = action.payload
-      },
-      setPwd: (state, action) => {
-        state.pwd = action.payload
-      }*/
+
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -111,9 +113,10 @@ export const userSlice = createSlice({
     })
     builder.addCase(getUserDetails.rejected, (state, action) => {
       state.isLoading = false
-      state.userErrors = action.payload
-      /*  console.log('state when getPosts is rejected')
-       console.log(current(state)) */
+      state.userErrors = action.error
+      state.error = action.error
+      console.log('state when getPosts is rejected')
+       console.log(current(state))
     })
 
     // Add reducers for additional action types here, and handle loading state as needed
@@ -132,8 +135,10 @@ export const userSlice = createSlice({
     })
     builder.addCase(signUp.rejected, (state, action) => {
       state.isLoading = false
-      state.userErrors = action.payload
-        console.log('state when sign-up is rejected:')
+      state.userErrors = action.error
+      state.error = action.error
+
+      console.log('state when sign-up is rejected:')
        console.log(current(state)) 
     })
   }

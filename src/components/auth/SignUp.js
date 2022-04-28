@@ -16,14 +16,7 @@ function SignUp() {
   //useSelector accepts a single function, which we call a selector function. 
   //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
   const { user, isUserLoading, userCredentials } = useSelector(selectUserInfo)
-/*
-  //use state constants for the form inputs
-  const [email, setEmail] = useState('');
-  const [pwd, setPwd] = useState('');
-  const [lname, setLName] = useState('');
-  const [fname, setFName] = useState('');
-  const [user_data, setData] = useState('')*/
-  //const [profilePic, setProfilePic] = useState('');
+
 
   const navigate = useNavigate();
 
@@ -36,7 +29,7 @@ function SignUp() {
 
 
   const submitForm = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     // get new errors
     const newErrors = findFormErrors()
@@ -49,22 +42,16 @@ function SignUp() {
     else {
 
       //dispatch the action to sign up a new user with validated credentials
-      dispatch(signUp({'email': userCredentials.email, 'password': userCredentials.password}))
-
-      /*
-      fetch('/SignUp', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, pwd, fname, lname })
-      })
-        .then(response => response.json())
-        .then(data => { setData(data) })
-        .catch((error) => {
-          console.error(error);
-        });*/
-
+      dispatch(signUp({'email': userCredentials.email, 
+                        'password': userCredentials.password, 
+                        'first': userCredentials.first, 
+                        'last': userCredentials.last}))
+                        //dispatched thunk has an unwrap property which can be called to extract the payload of a fulfilled action or to throw either the error
+                        .unwrap()
+                        .catch((error) => {
+                          // handle error here
+                          alert("Dispatch signup: " + error.message)
+                        })
       navigate('/Home')
     }
 
@@ -185,7 +172,7 @@ function SignUp() {
               Create Account
             </Button>
             <nav>
-              <Link to='/Login' className='text-light'>Already have an account? Log In</Link>
+              <Link to='/login' className='text-light'>Already have an account? Log In</Link>
             </nav>
           </div>
 

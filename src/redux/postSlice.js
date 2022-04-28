@@ -1,16 +1,17 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import { createSelector } from 'reselect'
 
-export const getPosts = createAsyncThunk(
-    'posts/getPosts',
+export const getAllRecipes = createAsyncThunk(
+    'posts/getAllRecipes',
       async (thunkAPI) => {
         try {
-          const res = await fetch('/posts').then(
+          const res = await fetch('/all-recipes').then(
             (data) => data.json()
           )
           return res
         } catch(err) {
-          return 'There was an error processing the request.'
+            console.log(err)
+          return "none"
         }
     }
 
@@ -56,18 +57,18 @@ export const postSlice = createSlice({
   },
   extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
-        builder.addCase(getPosts.pending, (state, action) => {
+        builder.addCase(getAllRecipes.pending, (state, action) => {
           state.isLoading = true
            console.log('state when getPosts is pending')
           console.log(current(state)) 
         })
-        builder.addCase(getPosts.fulfilled, (state, action) => {
+        builder.addCase(getAllRecipes.fulfilled, (state, action) => {
           state.isLoading = false
           state.posts = action.payload
            console.log('state when getPosts is fulfilled')
           console.log(current(state)) 
         })
-        builder.addCase(getPosts.rejected, (state, action) => {
+        builder.addCase(getAllRecipes.rejected, (state, action) => {
           state.isLoading = false
           state.error = action.payload
            console.log('state when getPosts is rejected')

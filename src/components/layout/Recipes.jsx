@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Recipe = ({doc}) => {
+const Recipes = ({doc}) => {
     //Destructor
     const {id, name, keywords, image, serves, calories, ingredients, instructions, source} = doc 
 
@@ -16,13 +16,11 @@ const Recipe = ({doc}) => {
                 <p>{source}</p>
                 {
                     Object.keys(instructions).map((instructionStep,i)=>{
-                        return (
-                            <li key={i}>{instructions[instructionStep]}</li>
-              )
-          })
-        }
+                        return (<li key={i}>{instructions[instructionStep]}</li>)
+                    })
+                }
         
             </div>)   
 }
 
-export default Recipe
+export default Recipes
