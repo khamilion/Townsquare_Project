@@ -48,11 +48,14 @@ function SignUp() {
                         'last': userCredentials.last}))
                         //dispatched thunk has an unwrap property which can be called to extract the payload of a fulfilled action or to throw either the error
                         .unwrap()
+                        .then(() => {
+                          //if the there are no errors navigate to the home page
+                          navigate('/Home')
+                      })
                         .catch((error) => {
                           // handle error here
-                          alert("Dispatch signup: " + error.message)
+                          alert("Please try again: " + error)
                         })
-      navigate('/Home')
     }
 
 

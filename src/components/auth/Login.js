@@ -11,12 +11,12 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Feedback from 'react-bootstrap/Feedback'
+
 
 
 function Login() {
 
-    //get fname, lname, email from redux store by using useSelector react hook
+    //get user, isUserLoading, userCredentials from redux store by using useSelector react hook
     //useSelector specifies which variable to read and from which particular reducer
     //useSelector accepts a single function, which we call a selector function. 
     //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
@@ -49,8 +49,16 @@ function Login() {
 
         //dispatch the action to sign up a new user with validated credentials
         dispatch(login({'email': userCredentials.email, 'password': userCredentials.password}))
-
-        navigate('/Home')
+                        //dispatched thunk has an unwrap property which can be called to extract the payload of a fulfilled action or to throw the error
+                        .unwrap()
+                        .then(() => {
+                            //if the there are no errors navigate to the home page
+                            navigate('/Home')
+                        })
+                        .catch((error) => {
+                          // handle error here
+                          alert("Dispatch login: " + error)
+                        })
         }
     }
 
