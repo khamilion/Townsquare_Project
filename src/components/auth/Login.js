@@ -48,7 +48,7 @@ function Login() {
         e.preventDefault();
 
         //dispatch the action to sign up a new user with validated credentials
-        dispatch(login({'email': userCredentials.email, 'password': userCredentials.password}))
+        dispatch(login({'email': userCredentials.email, 'pwd': userCredentials.password}))
                         //dispatched thunk has an unwrap property which can be called to extract the payload of a fulfilled action or to throw the error
                         .unwrap()
                         .then(() => {

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
+import { create } from 'lodash';
 import { createSelector } from 'reselect'
 
 export const getUserDetails = createAsyncThunk(
@@ -15,6 +16,30 @@ export const getUserDetails = createAsyncThunk(
   }
 
 );
+
+//logout a user
+export const logout = createAsyncThunk(
+  'user/logout', async ({ rejectWithValue }) => {
+
+    //fetch the logout endpoint
+    const response = await fetch('/logout')
+
+    console.log(response)
+
+    let res = await response.json()
+
+    //if the response was not succesful call the rejected action
+    if(!response.ok){
+      
+      return rejectWithValue(res)
+    }
+    else{       
+      return null
+    } 
+
+
+  }
+)
 
 //sign up a new user
 export const signUp = createAsyncThunk(
@@ -34,6 +59,7 @@ export const signUp = createAsyncThunk(
 
         let res = await response.json()
 
+        //if the response was not succesfull call the rejected action
         if(!response.ok){
           return rejectWithValue(res)
         }
@@ -194,6 +220,7 @@ export const userSlice = createSlice({
          console.log('state when login is fulfilled')
         console.log(current(state))
       })
+
       //rejected.
       builder.addCase(login.rejected, (state, action) => {
         state.isUserLoading = false
@@ -207,6 +234,51 @@ export const userSlice = createSlice({
       })
 
 
+      //**logout reducers**
+
+       //pending
+       builder.addCase(logout.pending, (state, action) => {
+        state.isUserLoading = true
+
+        console.log('state when logout is pending')
+        console.log(current(state))
+      })
+
+      //fulfilled
+      builder.addCase(logout.fulfilled, (state, action) => {
+        state.isUserLoading = false
+        state.isAuthenticated = false
+
+        //update the user's credentials
+        state.user = action.payload
+
+        //clear the user credentials
+        state.userCredentials.email = ''
+        state.userCredentials.first = ''
+        state.userCredentials.last = ''
+        state.userCredentials.password = ''
+
+        //when fulfilled clear the userErrors field
+        state.userErrors = null
+        
+         console.log('state when logout is fulfilled')
+        console.log(current(state))
+      })
+
+      //rejected.
+      builder.addCase(logout.rejected, (state, action) => {
+        state.isUserLoading = false
+        state.isAuthenticated = true
+
+        //assign the errors
+        state.userErrors = action.payload
+        state.error = action.payload
+  
+        console.log('state when logout is rejected:')
+         console.log(current(state)) 
+      })
+
+
   }
 })
 
@@ -216,11 +288,12 @@ const selectUserCredentials = state => state.user.userCredentials
 const selectUserAuth = state => state.user.isAuthenticated
 
 //selector
-export const selectUserInfo = createSelector([selectUser, selectUserLoading, selectUserCredentials], (user, isUserLoading, userCredentials) => {
+export const selectUserInfo = createSelector([selectUser, selectUserLoading, selectUserCredentials, selectUserAuth], (user, isUserLoading, userCredentials, isAuthenticated) => {
   return {
     user,
     isUserLoading,
-    userCredentials
+    userCredentials,
+    isAuthenticated
   }
 })
 

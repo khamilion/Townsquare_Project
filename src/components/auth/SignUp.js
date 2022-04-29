@@ -130,6 +130,7 @@ function SignUp() {
                   </p>
                 </Link>
               </nav>
+              
             </Col>
           </Row>
         </Container>
