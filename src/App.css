@@ -54,3 +54,15 @@
   font-family: 'Satisfy', 'sans-serif', cursive;
   font-size: 40px;
 }
+
+.homeImgSize{
+  object-fit:cover;
+  width:500px;
+  height:500px;
+
+}
+
+.cards{
+  width: '25rem';
+  font-family: 'Merienda', cursive;
+}
