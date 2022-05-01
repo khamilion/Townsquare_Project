@@ -14,14 +14,8 @@ import{ useNavigate, Link } from 'react-router-dom'
 
 function Home() {
 
-
-    const [recipes, setRecipes] = useState(null);
-
     useEffect(() => {
-        //runs once after initial mounting
-        fetch('/Home')
-            .then((res) => res.json())
-            .then((data) => { setRecipes(data); console.log(data) });
+
     }, []);
 
     //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
@@ -31,11 +25,16 @@ function Home() {
         <>
             <Header />
 
-            <div className='homeBG'>
-                {recipes && recipes.map((doc) =>
-                    <Recipes doc={doc} />
-                )}
-            </div>
+            <Container fluid className='vh-100'>
+                <Row className="h-75 border-bottom">
+                    <Col className="border border-danger">
+                        1 of 1
+                    </Col>
+                    <Col className="border border-warning">
+                        1 of 1
+                    </Col>
+                </Row>
+            </Container>
 
 
 

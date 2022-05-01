@@ -34,7 +34,9 @@
 .homehdr{
   background-color: rgb(12, 14, 41);
   font-family: 'Satisfy', 'sans-serif',cursive;
+  height:235px;
 }
+
 .homehdrInner{
   font-family: 'Satisfy', 'sans-serif',cursive;
 }

@@ -4,23 +4,30 @@ import { createSelector } from 'reselect'
 
 export const getUserDetails = createAsyncThunk(
   'user/user-auth',
-    async (thunkAPI) => {
-      try {
-        const res = await fetch('/user-auth').then(
-          (data) => data.json()
-        )
-        return res
-      } catch(err) {
-        return 'There was an error processing the request.'
+    async (thunkAPI, { rejectWithValue }) => {
+  
+        const res = await fetch('/user-auth')
+
+        let rjson = await res.json()
+        console.log(rjson)
+
+      //if the response was not succesful call the rejected action
+      if (!res.ok) {
+
+        return rejectWithValue(res)
       }
+      else {
+        return rjson
+      } 
+
   }
 
 );
 
 //logout a user
 export const logout = createAsyncThunk(
-  'user/logout', async ({ rejectWithValue }) => {
-
+  'user/logout', async (request, { rejectWithValue }) => {
+    console.log("button pushed")
     //fetch the logout endpoint
     const response = await fetch('/logout')
 
@@ -147,14 +154,16 @@ export const userSlice = createSlice({
       state.isUserLoading = false
       console.log(action.payload)
       state.user = action.payload
-      /* console.log('state when getPosts is fulfilled')
-      console.log(current(state)) */
+      state.isAuthenticated = true
+       console.log('state when userDetails is fulfilled')
+      console.log(current(state)) 
     })
     builder.addCase(getUserDetails.rejected, (state, action) => {
       state.isLoading = false
       state.userErrors = action.error
       state.error = action.error
-      console.log('state when getPosts is rejected')
+      state.isAuthenticated = false
+      console.log('state when userDetails is rejected')
        console.log(current(state))
     })
 

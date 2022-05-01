@@ -7,7 +7,7 @@ import SignedInLinks from './SignedInLinks';
 
 function NavComponent() {
     return (
-        <div className='d-flex justify-content-center '>
+        <div className='d-flex justify-content-center pt-4'>
             
 
             <Navbar variant="dark" expand="lg" className='border-top'>
@@ -34,6 +34,10 @@ function NavComponent() {
 
                             <LinkContainer to="">
                                 <Nav.Link>Dinner</Nav.Link>
+                            </LinkContainer>
+
+                            <LinkContainer to="/all-recipes">
+                                <Nav.Link>All Recipes</Nav.Link>
                             </LinkContainer>
 
                             

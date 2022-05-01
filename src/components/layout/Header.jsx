@@ -9,28 +9,51 @@ import{ useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 import { useDispatch, useSelector } from 'react-redux'
-import {logout, selectUserInfo} from '../../redux/userSlice'
+import {getUserDetails, logout, selectUserInfo} from '../../redux/userSlice'
+import { useEffect } from 'react';
 
 const Header = () => {
 
+
+
     //isAuthenticated state holds boolean value if user is logged in or not
-    const {isAuthenticated} = useSelector(selectUserInfo)
+    const {user, isAuthenticated} = useSelector(selectUserInfo)
 
      //set up the dispatch hook in order to call any action from any reducer
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        //console.log('use Effect Called on initial render');
+    
+        //Dispatch the action to get all recipes from database
+        dispatch(getUserDetails());
+      },[]);
+
+      console.log(user, isAuthenticated)
     //logout the user
     const logoutUser = (e) => {
-        
+        e.preventDefault()
+        console.log("Before dispatch")
         //dispatch the action to fetch the logout endpoint
-        dispatch(logout)
+        dispatch(logout())
+        //dispatched thunk has an unwrap property which can be called to extract the payload of a fulfilled action or to throw either the error
+        .unwrap()
+        .then(() => {
+          //if the there are no errors navigate to the home page
+          //navigate('/Home')
+          console.log("after .then")
+      })
+        .catch((error) => {
+          // handle error here
+          alert("Please try again: " + error)
+        })
     }
 
     return (  
         <>
-        <header>
-
-            <Container fluid className='homehdr justify-content-center pt-4'>
+        <header >
+        <div className='d-flex align-items-center'>
+            <Container fluid className='homehdr justify-content-center pt-5'>
 
                 <Row className='justify-content-center text-center'>
                     <Col>
@@ -45,7 +68,7 @@ const Header = () => {
                     </Col>
 
                     <Col xs={8}>
-                        <p className='text-light  mb-0' style={{ fontSize: '45px' }}>
+                        <p className='text-light  mb-0' style={{ fontSize: '60px' }}>
                             Food<span className='text-warning'>i</span>
                         </p>
                     </Col>
@@ -54,7 +77,7 @@ const Header = () => {
                         <div className='pt-3'>
                            
                                 {isAuthenticated 
-                                ? <Button variant="warning" onClick={() => dispatch(logout)} className="rounded-pill"> Log out</Button>
+                                ? <button variant="warning" onClick={(e) => logoutUser(e)} className="rounded-pill"> Log out</button>
                                 : <Link to='/login' className='text-dark p-2 border border-warning bg-warning rounded-pill' style={{ textDecoration: 'none' }}> Log in</Link>}
                                 
                                 {/*<Link to='/Home' className='text-dark p-2 border border-warning bg-warning rounded-pill' style={{ textDecoration: 'none' }}> Log Out</Link>*/}
@@ -66,7 +89,7 @@ const Header = () => {
                 <NavComponent />
                 
             </Container>
-
+        </div>
         </header>
     </>
     )
