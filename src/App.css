@@ -66,3 +66,28 @@
   width: '25rem';
   font-family: 'Merienda', cursive;
 }
+
+.breakfastTheme{
+  border: solid 4px orange;
+  border-radius: 50%;
+}
+
+.breakfastButton{
+background-color: orange;
+border: solid orange;
+border-radius: 5px;
+padding:5px;
+text-align: center;
+transition-duration: 0.4s;
+text-decoration: none;
+}
+
+.breakfastButton:hover{
+  background-color: rgb(234, 154, 6);
+  border: solid rgb(234, 154, 6);
+  
+}
+
+.iconColor{
+  color:black;
+}

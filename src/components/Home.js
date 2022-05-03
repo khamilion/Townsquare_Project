@@ -11,11 +11,18 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { Navbar } from 'react-bootstrap'
+import Carousel from 'react-bootstrap/Carousel'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLeaf, faUtensils, faHamburger } from '@fortawesome/free-solid-svg-icons'
+
 
 import NavComponent from './layout/NavComponent'
 import{ useNavigate, Link } from 'react-router-dom'
 
 import frenchToast from '../images/frenchToast.jpeg'
+import burrito from '../images/vegetarian-bean-and-rice-burrito-recipe.jpg'
+import shrimpFajitas from '../images/Shrimp-Fajitas.jpg'
 
 function Home() {
 
@@ -30,53 +37,165 @@ function Home() {
         <>
             <Header />
 
-            <Container fluid className='vh-100'>
-                <Row className=" align-items-center ">
-                    <Col className=" pt-5 pb-5">
-                        <Row className=''> 
+            <Container fluid className='vh-100 '>
+                <Carousel variant="dark" style={{'min-height':'70%'}}>   
+                    <Carousel.Item interval={5000}>
+                        <Row className=" align-items-center ">
 
-                            <Col lg className='text-sm-center text-lg-end'>
-                               <img src={frenchToast} alt='French Toast' className='homeImgSize rounded-pill border border-warning  border-4'/>
+                            <Col className=" pt-5 pb-5">
+                                <Row>
+
+
+                                    <Col lg className='text-sm-center text-lg-end'>
+                                        <img src={frenchToast} alt='French Toast' className='homeImgSize breakfastTheme ' />
+                                    </Col>
+
+                                    <Col lg className='d-flex align-items-center justify-content-sm-center justify-content-lg-start'>
+
+                                        <Card border="light" className='cards'>
+                                            <Card.Title className='fs-1'>
+                                                Easy French Toast
+                                            </Card.Title>
+
+                                            <Card.Subtitle className=" fs-3 text-muted">
+                                                Breakfast
+                                            </Card.Subtitle>
+
+                                            <hr />
+
+                                            <Card.Body className='ps-0'>
+                                                <Card.Text className='mb-4' >
+                                                    Quick and easy french toast recipe. 
+
+                                                </Card.Text>
+
+                                                <Card.Text className='pb-4' >
+                                                    Click below to view ingredients.
+                                                </Card.Text>
+
+                                                <button type='button' className='breakfastButton'>Go to recipe</button>
+                                                <Button variant="outline-dark ms-2">View all breakfast</Button>
+                                            </Card.Body>
+                                        </Card>
+
+                                    </Col>
+
+
+                                </Row>
                             </Col>
 
-                            <Col lg className='d-flex align-items-center justify-content-sm-center justify-content-lg-start'>
+                        </Row>
+                    </Carousel.Item>
 
-                                <Card border="light" className='cards'>
-                                    <Card.Title className='fs-1'>
-                                        Easy French Toast
-                                    </Card.Title>
+                    <Carousel.Item interval={5000}>
+                        <Row className=" align-items-center ">
 
-                                    <Card.Subtitle className=" fs-3 text-muted">
-                                        Breakfast
-                                    </Card.Subtitle>
+                            <Col className=" pt-5 pb-5">
+                                <Row className=''>
 
-                                    <hr/>
 
-                                    <Card.Body className='ps-0'>
-                                        <Card.Text className='pb-4' >
-                                            Quick and easy french toast recipe. Click below to view ingredients.
-                                        </Card.Text>
+                                    <Col lg className='text-sm-center text-lg-end'>
+                                        <img src={burrito} alt='Bean and Rice Burrito' className='homeImgSize rounded-pill border border-success  border-4' />
+                                    </Col>
 
-                                        <Button variant="primary">Go to recipe</Button>
-                                        <Button variant="primary ms-2">View all breakfast</Button>
-                                    </Card.Body>
-                                </Card>
+                                    <Col lg className='d-flex align-items-center justify-content-sm-center justify-content-lg-start'>
 
+                                        <Card border="light" className='cards'>
+                                            <Card.Title className='fs-1'>
+                                                Bean and Rice Burrito
+                                            </Card.Title>
+
+                                            <Card.Subtitle className=" fs-3 text-muted">
+                                                Lunch
+                                            </Card.Subtitle>
+
+                                            <hr />
+
+                                            <Card.Body className='ps-0'>
+                                                <Card.Text className='mb-4' >
+                                                    Quick and easy burrito recipe.
+                                                </Card.Text>
+
+                                                <Card.Text className='pb-4' >
+                                                    Click below to view ingredients.
+                                                </Card.Text>
+
+                                                <Button variant="success">Go to recipe</Button>
+                                                <Button variant="outline-dark ms-2">View all lunch</Button>
+                                            </Card.Body>
+                                        </Card>
+
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
+                    </Carousel.Item>
+
+                    <Carousel.Item interval={5000}>
+                        <Row className=" align-items-center ">
+
+                            <Col className=" pt-5 pb-5">
+                                <Row className=''>
+
+
+                                    <Col lg className='text-sm-center text-lg-end'>
+                                        <img src={shrimpFajitas} alt='Shrimp Fajitas' className='homeImgSize rounded-pill border border-warning  border-4' />
+                                    </Col>
+
+                                    <Col lg className='d-flex align-items-center justify-content-sm-center justify-content-lg-start'>
+
+                                        <Card border="light" className='cards'>
+                                            <Card.Title className='fs-1'>
+                                                Shrimp Fajitas
+                                            </Card.Title>
+
+                                            <Card.Subtitle className=" fs-3 text-muted">
+                                                Dinner
+                                            </Card.Subtitle>
+
+                                            <hr />
+
+                                            <Card.Body className='ps-0'>
+                                                <Card.Text className='mb-4' >
+                                                Delicious seafood meal.
+                                                </Card.Text>
+                                                
+                                                <Card.Text className='pb-4' >
+                                                    Click below to view ingredients.
+                                                </Card.Text>
+
+                                                <Button variant="warning">Go to recipe</Button>
+                                                <Button variant="outline-dark ms-2">View all dinner</Button>
+                                            </Card.Body>
+                                        </Card>
+
+                                    </Col>
+
+
+                                </Row>
+                            </Col>
+
+                        </Row>
+                    </Carousel.Item>
+                </Carousel> 
+
+                <Row className='text-light align-items-center' style={{'min-height':'30%', 'background-color':'rgb(253, 207, 55)'}}>
+                    <Col className=' text-center'>
+                        <FontAwesomeIcon icon={faLeaf} size="3x" className='iconColor' />
+                        <p>Vegetarian Friendly</p>
+                    </Col>
+
+                    <Col className=' text-center'>
+                        <FontAwesomeIcon icon={faUtensils} size="3x" className='iconColor' />
+                        <p>Variety Options</p>
+                    </Col>
+
+                    <Col className=' text-center'>
+                        <FontAwesomeIcon icon={faHamburger} size="3x" className='iconColor' />
+                        <p>Delicious Recipes</p>
                     </Col>
                 </Row>
-                
-                <Row className='bg-dark'>
-                    <Col>
-                        <div>dkfs</div>
-                    </Col>
-                </Row>
-                
             </Container>
-
-
-
         </>
     )
 }

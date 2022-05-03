@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 
 const Header = () => {
 
-
+    const navigate = useNavigate();
 
     //isAuthenticated state holds boolean value if user is logged in or not
     const {user, isAuthenticated} = useSelector(selectUserInfo)
@@ -51,7 +51,7 @@ const Header = () => {
 
     return (  
         <>
-        <header >
+        <header>
         <div className='d-flex align-items-center'>
             <Container fluid className='homehdr justify-content-center pt-5'>
 
@@ -59,11 +59,9 @@ const Header = () => {
                     <Col>
                         
                             <div className='pt-3'>
-                                <nav>
                                     {isAuthenticated 
-                                     ? <Link to='/' className='text-dark p-2 border border-primary bg-primary rounded-pill' style={{ textDecoration: 'none' }}> My Profile</Link>
-                                     : <Link to='/sign-up' className='text-dark p-2 border border-danger bg-danger rounded-pill' style={{ textDecoration: 'none' }}> Create Account</Link>}
-                                </nav>
+                                     ? <Button variant='primary' className='text-dark rounded-pill' size='lg' onClick={() => navigate('/')}> My Profile</Button>
+                                     : <Button variant='danger' className='text-dark rounded-pill' size='lg' onClick={() => navigate('/sign-up')}> Create Account</Button>}
                             </div>
                     </Col>
 
@@ -77,11 +75,8 @@ const Header = () => {
                         <div className='pt-3'>
                            
                                 {isAuthenticated 
-                                ? <button variant="warning" onClick={(e) => logoutUser(e)} className="rounded-pill"> Log out</button>
-                                : <Link to='/login' className='text-dark p-2 border border-warning bg-warning rounded-pill' style={{ textDecoration: 'none' }}> Log in</Link>}
-                                
-                                {/*<Link to='/Home' className='text-dark p-2 border border-warning bg-warning rounded-pill' style={{ textDecoration: 'none' }}> Log Out</Link>*/}
-                            
+                                ? <Button variant='warning' className='text-dark rounded-pill' size='lg' onClick={(e) => logoutUser(e)}> Log out</Button>
+                                : <Button variant='warning' className='text-dark rounded-pill' size='lg' onClick={() => navigate('/login')}> Log in</Button>}
                         </div>
                     </Col>
                 </Row>
