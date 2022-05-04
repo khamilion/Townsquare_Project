@@ -34,11 +34,16 @@
 .homehdr{
   background-color: rgb(12, 14, 41);
   font-family: 'Satisfy', 'sans-serif',cursive;
-  height:235px;
+  height:200px;
 }
 
 .homehdrInner{
   font-family: 'Satisfy', 'sans-serif',cursive;
+}
+
+.navBarStyle{
+  font-family: 'Satisfy', 'sans-serif',cursive;
+  background-color:rgb(253, 207, 55);
 }
 
 
@@ -88,6 +93,15 @@ text-decoration: none;
   
 }
 
-.iconColor{
+.icons{
   color:black;
+  font-family: 'Merienda', cursive;
+}
+
+.carouselStyle{
+  min-height:'70%';
+}
+
+.footerStyle{
+  border-top: solid 5px rgb(12, 14, 41);
 }

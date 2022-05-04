@@ -3,28 +3,27 @@ import { Component } from 'react';
 import { Navbar, Nav, Button} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container'
-import SignedInLinks from './SignedInLinks';
 
 function NavComponent() {
     return (
-        <div className='d-flex justify-content-center pt-4'>
-            
+      
+       
+            <Navbar sticky='top' variant="light" expand="sm" className='navBarStyle fs-5 '>
 
-            <Navbar variant="dark" expand="lg" className='border-top'>
-                <Container fluid >
-                    <Navbar.Toggle aria-controls="navbarScroll" />
+                <Container fluid className='justify-content-center'>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-                    <Navbar.Collapse id="navbarScroll">
-                        <Nav
-                            className="me-auto my-2 my-lg-0"
+                    <Navbar.Collapse id="responsive-navbar-nav">
+
+                        <Nav className="me-auto my-2 my-lg-0 "
                             style={{ maxHeight: '100px' }}
                             navbarScroll>
 
-                            <LinkContainer to="/Home">
+                            <LinkContainer to="/home">
                                 <Nav.Link>Home</Nav.Link>
                             </LinkContainer>
 
-                            <LinkContainer to="">
+                            <LinkContainer to="/breakfast">
                                 <Nav.Link>Breakfast</Nav.Link>
                             </LinkContainer>
 
@@ -39,18 +38,14 @@ function NavComponent() {
                             <LinkContainer to="/all-recipes">
                                 <Nav.Link>All Recipes</Nav.Link>
                             </LinkContainer>
-
-                            
                         </Nav>
 
                     </Navbar.Collapse>
 
                 </Container>
-            </Navbar>
-           
 
-            
-        </div>
+            </Navbar>
+       
     )
 }
 

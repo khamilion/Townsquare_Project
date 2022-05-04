@@ -50,7 +50,7 @@ function SignUp() {
                         .unwrap()
                         .then(() => {
                           //if the there are no errors navigate to the home page
-                          navigate('/Home')
+                          navigate('/home')
                       })
                         .catch((error) => {
                           // handle error here
@@ -124,7 +124,7 @@ function SignUp() {
             <Col xs={10}>
 
               <nav>
-                <Link to='/Home' style={{ textDecoration: 'none' }}>
+                <Link to='/home' style={{ textDecoration: 'none' }}>
                   <p className='hdrSize text-light mb-0 mt-4 fw-lighter border-bottom'>
                     Food<span className='text-warning'>i</span>
                   </p>

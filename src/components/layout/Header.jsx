@@ -81,11 +81,13 @@ const Header = () => {
                     </Col>
                 </Row>
 
-                <NavComponent />
+                
                 
             </Container>
         </div>
         </header>
+        
+        <NavComponent />
     </>
     )
 };

@@ -38,7 +38,7 @@ function Home() {
             <Header />
 
             <Container fluid className='vh-100 '>
-                <Carousel variant="dark" style={{'min-height':'70%'}}>   
+                <Carousel variant="dark" className='' style={{minHeight:'70%'}}>   
                     <Carousel.Item interval={5000}>
                         <Row className=" align-items-center ">
 
@@ -179,20 +179,21 @@ function Home() {
                     </Carousel.Item>
                 </Carousel> 
 
-                <Row className='text-light align-items-center' style={{'min-height':'30%', 'background-color':'rgb(253, 207, 55)'}}>
-                    <Col className=' text-center'>
-                        <FontAwesomeIcon icon={faLeaf} size="3x" className='iconColor' />
-                        <p>Vegetarian Friendly</p>
+                <Row className='text-light align-items-center footerStyle' style={{'minHeight':'30%', 'backgroundColor':'rgb(253, 207, 55)'}}>
+                    <Col className=' icons text-center'>
+                        <FontAwesomeIcon icon={faLeaf} size="3x"  />
+                        <p className='pt-3'>Vegetarian Friendly</p>
                     </Col>
 
-                    <Col className=' text-center'>
-                        <FontAwesomeIcon icon={faUtensils} size="3x" className='iconColor' />
-                        <p>Variety Options</p>
+                    <Col className='icons text-center'>
+                        <FontAwesomeIcon icon={faUtensils} size="3x" />
+                        <p className='pt-3'>Variety Options</p>
                     </Col>
 
-                    <Col className=' text-center'>
-                        <FontAwesomeIcon icon={faHamburger} size="3x" className='iconColor' />
-                        <p>Delicious Recipes</p>
+                    <Col className='icons text-center'>
+                        <FontAwesomeIcon icon={faHamburger} size="3x" />
+                        
+                        <p className='pt-3'>Delicious Recipes</p>
                     </Col>
                 </Row>
             </Container>
