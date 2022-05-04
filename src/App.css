@@ -37,6 +37,11 @@
   height:200px;
 }
 
+.footerlogo{
+  font-family: 'Satisfy', 'sans-serif',cursive;
+  font-size: 50px;
+}
+
 .homehdrInner{
   font-family: 'Satisfy', 'sans-serif',cursive;
 }
@@ -73,6 +78,10 @@
 }
 
 .breakfastTheme{
+  border: solid 10px orange;
+}
+
+.breakfastThemeHome{
   border: solid 4px orange;
   border-radius: 50%;
 }
@@ -104,4 +113,16 @@ text-decoration: none;
 
 .footerStyle{
   border-top: solid 5px rgb(12, 14, 41);
+}
+
+footer{
+  background-color: rgb(12, 14, 41);
+  color: white;
+}
+
+i{
+  color:white;
+  font-size: 2rem;
+  padding-left: 5px;
+  padding-right: 5px;
 }

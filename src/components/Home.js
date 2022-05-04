@@ -47,7 +47,7 @@ function Home() {
 
 
                                     <Col lg className='text-sm-center text-lg-end'>
-                                        <img src={frenchToast} alt='French Toast' className='homeImgSize breakfastTheme ' />
+                                        <img src={frenchToast} alt='French Toast' className='homeImgSize breakfastThemeHome ' />
                                     </Col>
 
                                     <Col lg className='d-flex align-items-center justify-content-sm-center justify-content-lg-start'>
