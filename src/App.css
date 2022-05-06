@@ -72,18 +72,41 @@
 
 }
 
-.cards{
+.cardHome{
   width: '25rem';
   font-family: 'Merienda', cursive;
 }
 
+
+.foodCards:hover{
+opacity: .9;
+}
+.foodCardImgOv{
+  background-color: orange;
+  
+  height: 20%;
+  opacity: .9;
+  font-family: 'Merienda', cursive;
+  color: white;
+  
+ }
+
+.topTheme, .breakfastTheme{
+  font-size: 35px;
+  font-family: 'Merienda', cursive;
+ 
+  border-top: solid 4px;
+  font-family:'Rockwell', 'Times New Roman', Times, serif;
+}
+
 .breakfastTheme{
-  border: solid 10px orange;
+  color:orange;
 }
 
 .breakfastThemeHome{
   border: solid 4px orange;
   border-radius: 50%;
+  color: orange;
 }
 
 .breakfastButton{

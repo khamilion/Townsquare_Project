@@ -23,7 +23,7 @@ function AllRecipes() {
 
     //Dispatch the action to get all recipes from database
     dispatch(getAllRecipes());
-    //dispatch(getUserDetails());
+    
   },[]);
 
   // display the recipes if isloading is false and posts is true

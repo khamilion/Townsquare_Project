@@ -52,7 +52,7 @@ function Home() {
 
                                     <Col lg className='d-flex align-items-center justify-content-sm-center justify-content-lg-start'>
 
-                                        <Card border="light" className='cards'>
+                                        <Card border="light" className='cardHome'>
                                             <Card.Title className='fs-1'>
                                                 Easy French Toast
                                             </Card.Title>

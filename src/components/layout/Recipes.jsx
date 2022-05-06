@@ -5,7 +5,7 @@ const Recipes = ({doc}) => {
     const {id, name, keywords, image, serves, calories, ingredients, instructions, source} = doc 
 
     console.log(instructions)
-    return(<div key={id} className=''>
+    return(<div key={id}>
         
                 <p>{name}</p>
                 {keywords && keywords.map((item, index) =>  <p key={index}> {item}</p>)}

@@ -17,6 +17,34 @@ export const getAllRecipes = createAsyncThunk(
 
 );
 
+export const getRecipe = createAsyncThunk(
+  'posts/getRecipe',
+  async (request, { rejectWithValue }) => {
+    console.log(`sign up thunk: ${JSON.stringify(request)}`);
+
+    //fetch the getRecipe endpoint
+    const response = await fetch('/getRecipe', {
+      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      body: JSON.stringify(request)
+    })
+    
+    console.log(response)
+    console.log(response.ok)
+
+    let res = await response.json()
+
+    //if the response was not succesfull call the rejected action
+    if(!response.ok){
+      return rejectWithValue(res)
+    }
+    else{       
+      return res
+    } 
+}
+
+);
+
 export const addPost = createAsyncThunk(
   'posts/addPosts',
     async (request) => {
@@ -40,6 +68,7 @@ export const addPost = createAsyncThunk(
 );
     
 
+
 const initialState = {
   posts: null,
   isLoading: true,
@@ -59,27 +88,68 @@ export const postSlice = createSlice({
         // Add reducers for additional action types here, and handle loading state as needed
         builder.addCase(getAllRecipes.pending, (state, action) => {
           state.isLoading = true
-           console.log('state when getPosts is pending')
+
+           console.log('state when getAllRecipes is pending')
           console.log(current(state)) 
         })
+
         builder.addCase(getAllRecipes.fulfilled, (state, action) => {
           state.isLoading = false
           state.posts = action.payload
-           console.log('state when getPosts is fulfilled')
+
+           console.log('state when getAllRecipes is fulfilled')
           console.log(current(state)) 
         })
+
         builder.addCase(getAllRecipes.rejected, (state, action) => {
           state.isLoading = false
           state.error = action.payload
-           console.log('state when getPosts is rejected')
+
+           console.log('state when getAllRecipes is rejected')
           console.log(current(state)) 
         })
+
         builder.addCase(addPost.rejected, (state, action) => {
           state.isLoading = false
           state.error = action.payload
+
          /*  console.log('state when addPost is rejected')
           console.log(current(state)) */
         })
+
+    //getRecipe reducers
+
+    //pending
+    builder.addCase(getRecipe.pending, (state, action) => {
+      state.isLoading = true
+
+      console.log('state when getRecipe is pending')
+      console.log(current(state))
+    })
+
+    //fulfilled
+    builder.addCase(getRecipe.fulfilled, (state, action) => {
+      state.isLoading = false
+
+      //assign the post state
+      state.posts = action.payload
+
+      //when fulfilled clear the errors field
+      state.error = null
+      
+       console.log('state when getRecipe is fulfilled')
+      console.log(current(state))
+    })
+
+    //rejected
+    builder.addCase(getRecipe.rejected, (state, action) => {
+      state.isLoading = false
+
+      state.error = action.payload
+
+      console.log('state when getRecipe is rejected:')
+       console.log(current(state)) 
+    })
    }
 })
 
