@@ -77,31 +77,35 @@
   font-family: 'Merienda', cursive;
 }
 
-
-.foodCards:hover{
-opacity: .9;
+.foodCards{
+  background-color: rgba(0, 0, 0, 0.9);
 }
-.foodCardImgOv{
-  background-color: orange;
+.foodCardImgOv:hover{
+  background-color: rgba(0, 0, 0, 0.100);
+
+}
+.foodCardImgOv{ 
+  background-color: rgba(0, 0, 0, 0.250);
   
-  height: 20%;
-  opacity: .9;
   font-family: 'Merienda', cursive;
   color: white;
   
  }
 
-.topTheme, .breakfastTheme{
+.topTheme, .breakfastTheme, .lunchTheme, .dinnerTheme{
   font-size: 35px;
   font-family: 'Merienda', cursive;
  
   border-top: solid 4px;
   font-family:'Rockwell', 'Times New Roman', Times, serif;
+
+  background-color: rgba(211, 211, 211, 0.386);
 }
 
 .breakfastTheme{
   color:orange;
 }
+
 
 .breakfastThemeHome{
   border: solid 4px orange;
@@ -110,7 +114,7 @@ opacity: .9;
 }
 
 .breakfastButton{
-background-color: orange;
+background-color: rgb(255, 165, 0);
 border: solid orange;
 border-radius: 5px;
 padding:5px;

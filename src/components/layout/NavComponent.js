@@ -10,12 +10,12 @@ function NavComponent() {
        
             <Navbar sticky='top' variant="light" expand="sm" className='navBarStyle fs-5 '>
 
-                <Container fluid className='justify-content-center'>
+                <Container fluid className='justify-content-center text-center'>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
                     <Navbar.Collapse id="responsive-navbar-nav">
 
-                        <Nav className="me-auto my-2 my-lg-0 "
+                        <Nav className="me-auto my-2 my-lg-0"
                             style={{ maxHeight: '100px' }}
                             navbarScroll>
 
@@ -27,11 +27,11 @@ function NavComponent() {
                                 <Nav.Link>Breakfast</Nav.Link>
                             </LinkContainer>
 
-                            <LinkContainer to="">
+                            <LinkContainer to="/lunch">
                                 <Nav.Link>Lunch</Nav.Link>
                             </LinkContainer>
 
-                            <LinkContainer to="">
+                            <LinkContainer to="/dinner">
                                 <Nav.Link>Dinner</Nav.Link>
                             </LinkContainer>
 

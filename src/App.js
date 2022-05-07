@@ -6,6 +6,8 @@ import Home from './components/Home';
 import "./App.css";
 import SignUp from "./components/auth/SignUp";
 import Breakfast from "./components/Breakfast";
+import Lunch from "./components/Lunch";
+import Dinner from "./components/Dinner";
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
         <Route path="all-recipes" element={<AllRecipes />}></Route>
         <Route path="home" element={<Home />}></Route>
         <Route path="breakfast" element={<Breakfast/>}></Route>
+        <Route path="lunch" element={<Lunch />}></Route>
+        <Route path="dinner" element={<Dinner />}></Route>
       </Routes>
   );
 }
