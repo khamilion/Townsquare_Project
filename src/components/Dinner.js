@@ -54,13 +54,13 @@ function Dinner() {
 
             </Container>
 
-            <Container fluid='lg' style={{ height: 'max-content' }} >
+            <Container fluid='xl' style={{ height: 'max-content' }} >
 
                 <Row sm={2} md={3} xl={4} className='gy-3 gx-3'>
 
                     {posts && posts.map((doc) =>
                         <>
-                            <Col key={doc.id} className="px-2 ">
+                            <Col key={doc.id} className="px-2">
 
                                 <Card> 
 
@@ -73,7 +73,7 @@ function Dinner() {
 
                                         
                                         <div className=' d-flex align-items-center flex-grow-1 text-center justify-content-center'>
-                                            <Link to='/home' style={{ textDecoration: 'none', color: 'white'}}>
+                                            <Link to={`/dinner/${doc.id}`} style={{ textDecoration: 'none', color: 'white'}}>
                                                 <Card.Title className=' py-5 fs-3'>
                                                     {doc.name}
                                                 </Card.Title>

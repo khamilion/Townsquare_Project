@@ -18,7 +18,8 @@ import BounceLoader from "react-spinners/BounceLoader";
 
 function Lunch() {
     const { posts, isLoading } = useSelector(selectPostsInfo);
-
+    console.log('lunch page:', posts)
+    
   //set up the dispatch hook in order to call any action from any reducer
   const dispatch = useDispatch()
 
@@ -54,7 +55,7 @@ function Lunch() {
 
             </Container>
 
-            <Container fluid='lg' style={{ height: 'max-content' }} >
+            <Container fluid='xl' style={{ height: 'max-content' }} >
 
                 <Row sm={2} md={3} xl={4} className='gy-3 gx-3'>
 
@@ -67,13 +68,13 @@ function Lunch() {
                                     <Card.Img src={doc.image} alt={doc.name} style={{ height: '400px', objectFit: 'cover' }} />
 
                                     <Card.ImgOverlay className='foodCardImgOv d-flex flex-column p-1'>
-                                        <div className=''>
+                                        <div>
                                             <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
                                         </div>
 
 
                                         <div className=' d-flex align-items-center flex-grow-1 text-center justify-content-center'>
-                                            <Link to='/home' style={{ textDecoration: 'none', color: 'white' }}>
+                                            <Link to={`/lunch/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                                 <Card.Title className=' py-5 fs-3'>
                                                     {doc.name}
                                                 </Card.Title>

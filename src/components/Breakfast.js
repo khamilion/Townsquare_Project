@@ -19,7 +19,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 function Breakfast() {
     const { posts, isLoading } = useSelector(selectPostsInfo)
-
+    console.log(posts)
   //set up the dispatch hook in order to call any action from any reducer
   const dispatch = useDispatch()
 

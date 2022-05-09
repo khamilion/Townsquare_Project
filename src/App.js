@@ -22,10 +22,15 @@ function App() {
         <Route path="sign-up" element={<SignUp />}></Route>
         <Route path="all-recipes" element={<AllRecipes />}></Route>
         <Route path="home" element={<Home />}></Route>
+
         <Route path="breakfast" element={<Breakfast/>}></Route>
         <Route path="breakfast/:recipeID" element={<Recipe/>}></Route>
+
         <Route path="lunch" element={<Lunch />}></Route>
+        <Route path="lunch/:recipeID" element={<Recipe/>}></Route>
+        
         <Route path="dinner" element={<Dinner />}></Route>
+        <Route path="dinner/:recipeID" element={<Recipe/>}></Route>
       </Routes>
   );
 }
