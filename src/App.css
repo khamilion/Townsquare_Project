@@ -153,3 +153,26 @@ i{
   padding-left: 5px;
   padding-right: 5px;
 }
+
+.recipeSubHeading{
+  font-size: 30px;
+  font-family: 'Merienda', cursive;
+}
+
+.recipeHeading{
+  font-size: 50px;
+  font-family: 'Merienda', cursive;
+
+}
+
+.recipeImg{
+  border-radius: 20%;
+}
+
+.recipeDetails{
+  font-family:'Rockwell', 'Times New Roman', Times, serif;
+}
+
+.recipeDetailsIcon{
+  padding-top: 7px;
+}

@@ -29,7 +29,7 @@ const Header = () => {
         dispatch(getUserDetails());
       },[]);
 
-      console.log(user, isAuthenticated)
+      console.log('user' + user, 'auth:'+ isAuthenticated)
     //logout the user
     const logoutUser = (e) => {
         e.preventDefault()

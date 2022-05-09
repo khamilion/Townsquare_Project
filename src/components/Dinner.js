@@ -67,7 +67,7 @@ function Dinner() {
                                     <Card.Img src={doc.image} alt={doc.name} style={{ height: '400px', objectFit: 'cover' }} />
   
                                     <Card.ImgOverlay className='foodCardImgOv d-flex flex-column p-1 '>
-                                        <div >
+                                        <div>
                                             <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
                                         </div>
 
