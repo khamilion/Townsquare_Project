@@ -7,10 +7,12 @@ import Container from 'react-bootstrap/Container'
 function NavComponent() {
     return (
       
-       
-            <Navbar sticky='top' variant="light" expand="sm" className='navBarStyle fs-5 '>
 
-                <Container fluid className='justify-content-center text-center'>
+        <Container fluid className='justify-content-center text-center navBarStyle d-flex'>
+
+            <Navbar variant="light" expand="sm" className=' fs-5 '>
+                <Container fluid>
+
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
                     <Navbar.Collapse id="responsive-navbar-nav">
@@ -43,9 +45,9 @@ function NavComponent() {
                     </Navbar.Collapse>
 
                 </Container>
-
             </Navbar>
-       
+        </Container>
+
     )
 }
 

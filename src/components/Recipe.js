@@ -18,47 +18,29 @@ import {faUtensils, faC } from '@fortawesome/free-solid-svg-icons'
 
 function Recipe() {
 
-    const { posts, isLoading } = useSelector(selectPostsInfo);
-    console.log(posts)
+    const { posts, isLoading, recipe } = useSelector(selectPostsInfo);
+    
 
       //set up the dispatch hook in order to call any action from any reducer
   const dispatch = useDispatch()
 
     //Get the parameter containing the id
-    const {recipeID} = useParams()
+    const {meal, recipeID} = useParams()
 
     //get the current path location 
     let location = useLocation();
 
-    //holds the meal type  of current recipe
-    let meal
+    
 
     console.log(recipeID)
-    /*
-    //loop through the posts array containing the recipe information to find the currect recipe to display
-    posts.forEach((doc) => {
-        if (doc.id === recipeID){
-             ({id, name, keywords, image, serves, calories, ingredients, instructions, source} = doc )
-             console.log(name)
-             console.log(ingredients)
-             console.log(instructions)
-        }
-    })*/
-
+    console.log(meal)
     useEffect(() => {
+        //holds the meal type  of current recipe
+        //let meal
+
         //console.log('use Effect Called on initial render');
         let path = location.pathname
         console.log(`path: ${path}`)
-
-        if(path.includes('breakfast')){
-            meal = 'breakfast'
-        }
-        else if(path.includes('lunch')){
-            meal = 'lunch'
-        }
-        else if(path.includes('dinner')){
-            meal = 'dinner'
-        }
 
         //Dispatch the action to get a recipe from database
         dispatch(getRecipe({
@@ -74,7 +56,8 @@ function Recipe() {
 
     }, []);
 
-    if(!isLoading && posts){
+    if(!isLoading && recipe){
+        console.log(recipe)
         return (
             <>
               <Header />
@@ -83,7 +66,7 @@ function Recipe() {
     
                     <Row className=''>
                         <Col xs={12} className='d-flex align-items-center justify-content-center fs-1 '>
-                            <p className='recipeHeading pt-4'>{posts[0].name}</p>
+                            <p className='recipeHeading pt-4'>{recipe[0].name}</p>
                             
                         </Col>
     
@@ -93,7 +76,7 @@ function Recipe() {
                                     <div>
                                         <FontAwesomeIcon icon={faUtensils} size="2x" className="recipeDetailsIcon" />
                                         <p className='mb-0'>serving</p>
-                                        <p className='mt-0 mb-0'>{posts[0].serves}</p>
+                                        <p className='mt-0 mb-0'>{recipe[0].serves}</p>
                                     </div>
                                 
                                 </Col>
@@ -102,7 +85,7 @@ function Recipe() {
                                     <div>
                                     <FontAwesomeIcon icon={faC} size="2x"  className="recipeDetailsIcon"/>
                                     <p className='mb-0'>calories</p>
-                                    <p className='mt-0 mb-0'>{posts[0].calories}</p>
+                                    <p className='mt-0 mb-0'>{recipe[0].calories}</p>
                                     </div>
                                    
                                 </Col>
@@ -118,7 +101,7 @@ function Recipe() {
                                 <Col xs={2} className=' d-flex align-items-center justify-content-center'>
                                     <div>
                                     
-                                    {posts[0].keywords && posts[0].keywords.map((item, index) =>  <p key={index}> {item}</p>)}
+                                    {recipe[0].keywords && recipe[0].keywords.map((item, index) =>  <p key={index}> {item}</p>)}
                                     </div>
                                 
                                 </Col>
@@ -129,11 +112,11 @@ function Recipe() {
                     <Row>
     
                         <Col md={4} className=' order-sm-last order-md-first border-start border-end'>
-                            <div className='ms-5'>
+                            <div className='ms-5 mt-3'>
                                 <p className='recipeSubHeading' >Ingredients</p>
     
                                 <div className='ps-2' style={{backgroundColor: 'rgba(211, 211, 211, 0.465)'}}>
-                                {posts[0].ingredients && posts[0].ingredients.map((ingred, i) => <p key={i}> {ingred} </p>)}
+                                {recipe[0].ingredients && recipe[0].ingredients.map((ingred, i) => <p key={i}> {ingred} </p>)}
                                 </div>
                                 
                             </div>
@@ -142,23 +125,23 @@ function Recipe() {
                                 <p className='recipeSubHeading'>Notes</p>
     
                                 <p>SOURCE</p>
-                                <a href={posts[0].source} className="link-warning">{posts[0].source}</a>
+                                <a href={recipe[0].source} className="link-warning">{recipe[0].source}</a>
                             </div>
     
                         </Col>
     
     
                         <Col md={8} className=' order-sm-first order-md-last border-end'>
-                            <div className='text-center'>
-                                <img src={posts[0].image} alt={posts[0].name} height="400px" width="400px" className="recipeImg" />
+                            <div className='text-center mt-3'>
+                                <img src={recipe[0].image} alt={recipe[0].name} height="400px" width="500px" className="recipeImg" />
                             </div>
     
                             <div className='ms-3'>
                                 <p className='recipeSubHeading mt-3'>Directions</p>
                                 <div>
                                 {
-                                        posts[0].instructions && Object.keys(posts[0].instructions).map((instructionStep, i) => {
-                                            return (<p key={i}>{posts[0].instructions[instructionStep]}</p>)
+                                        recipe[0].instructions && Object.keys(recipe[0].instructions).map((instructionStep, i) => {
+                                            return (<p key={i}>{recipe[0].instructions[instructionStep]}</p>)
                                         })
                                     }
                                     

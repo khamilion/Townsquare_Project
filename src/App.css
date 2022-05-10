@@ -17,9 +17,6 @@
   background-size: cover;
 }
 
-.homeBG{
-  background-color: bisque;
-}
 
 .labelBG{
   opacity: .75;
@@ -138,8 +135,9 @@ text-decoration: none;
   min-height:'70%';
 }
 
-.footerStyle{
-  border-top: solid 5px rgb(12, 14, 41);
+.footerStyleHome{
+  min-height: 15%;
+  background-color: rgb(12, 14, 41)
 }
 
 footer{
@@ -166,7 +164,8 @@ i{
 }
 
 .recipeImg{
-  border-radius: 20%;
+  border-radius: 10%;
+  
 }
 
 .recipeDetails{

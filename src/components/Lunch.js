@@ -17,8 +17,8 @@ import { Link } from 'react-router-dom'
 import BounceLoader from "react-spinners/BounceLoader";
 
 function Lunch() {
-    const { posts, isLoading } = useSelector(selectPostsInfo);
-    console.log('lunch page:', posts)
+    const { recipe, isLoading } = useSelector(selectPostsInfo);
+    console.log('lunch page:', recipe)
     
   //set up the dispatch hook in order to call any action from any reducer
   const dispatch = useDispatch()
@@ -38,7 +38,7 @@ function Lunch() {
   },[]);
 
   // display the recipes if isloading is false and posts is true
-  if (!isLoading && posts) {
+  if (!isLoading && recipe) {
     return (
         <>
             <Header />
@@ -59,7 +59,7 @@ function Lunch() {
 
                 <Row sm={2} md={3} xl={4} className='gy-3 gx-3'>
 
-                    {posts && posts.map((doc) =>
+                    {recipe && recipe.map((doc) =>
                         <>
                             <Col key={doc.id} className="px-2">
 
@@ -74,7 +74,7 @@ function Lunch() {
 
 
                                         <div className=' d-flex align-items-center flex-grow-1 text-center justify-content-center'>
-                                            <Link to={`/lunch/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                                            <Link to={`/lunch/lunch/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                                 <Card.Title className=' py-5 fs-3'>
                                                     {doc.name}
                                                 </Card.Title>

@@ -3,17 +3,25 @@ import { createSelector } from 'reselect'
 
 export const getAllRecipes = createAsyncThunk(
     'posts/getAllRecipes',
-      async (thunkAPI) => {
-        try {
-          const res = await fetch('/all-recipes').then(
-            (data) => data.json()
-          )
-          return res
-        } catch(err) {
-            console.log(err)
-          return "none"
-        }
+  async (thunkAPI, { rejectWithValue }) => {
+
+    const response = await fetch('/all-recipes')
+
+    console.log(response)
+    console.log(response.ok)
+
+    let res = await response.json()
+    console.log("Object =>", res)
+
+    //if the response was not succesfull call the rejected action
+    if (!response.ok) {
+      return rejectWithValue(res)
     }
+    else {
+      return res
+    }
+
+  }
 
 );
 
@@ -71,6 +79,7 @@ export const addPost = createAsyncThunk(
 
 const initialState = {
   posts: null,
+  recipe: null,
   isLoading: true,
   error: null
 }
@@ -132,7 +141,8 @@ export const postSlice = createSlice({
       state.isLoading = false
 
       //assign the post state
-      state.posts = action.payload
+      //state.posts = action.payload
+      state.recipe = action.payload
 
       //when fulfilled clear the errors field
       state.error = null
@@ -158,13 +168,15 @@ export const { addNewPost } = postSlice.actions
 
 export default postSlice.reducer
 
+const selectRecipe = state => state.posts.recipe
  const selectPosts = state => state.posts.posts
  const selectLoading = state => state.posts.isLoading
 
-export const selectPostsInfo = createSelector([selectPosts, selectLoading], (posts, isLoading) => {
+export const selectPostsInfo = createSelector([selectPosts, selectLoading, selectRecipe], (posts, isLoading, recipe) => {
     return {
       posts,
-      isLoading
+      isLoading,
+      recipe
     }
 })
 

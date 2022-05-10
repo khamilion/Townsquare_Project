@@ -23,6 +23,7 @@ import{ useNavigate, Link } from 'react-router-dom'
 import frenchToast from '../images/frenchToast.jpeg'
 import burrito from '../images/vegetarian-bean-and-rice-burrito-recipe.jpg'
 import shrimpFajitas from '../images/Shrimp-Fajitas.jpg'
+import Footer from './layout/Footer';
 
 function Home() {
 
@@ -37,7 +38,7 @@ function Home() {
         <>
             <Header />
 
-            <Container fluid className='vh-100 '>
+            <Container fluid className='' style={{height:'70vh'}}>
                 <Carousel variant="dark" className='' style={{minHeight:'70%'}}>   
                     <Carousel.Item interval={5000}>
                         <Row className=" align-items-center ">
@@ -179,23 +180,27 @@ function Home() {
                     </Carousel.Item>
                 </Carousel> 
 
-                <Row className='text-light align-items-center footerStyle' style={{'minHeight':'30%', 'backgroundColor':'rgb(253, 207, 55)'}}>
-                    <Col className=' icons text-center'>
-                        <FontAwesomeIcon icon={faLeaf} size="3x"  />
-                        <p className='pt-3'>Vegetarian Friendly</p>
-                    </Col>
+                <footer className='footerStyleHome'>
+                    <Container fluid className='align-items-end mx-0 px-0 '>
+                        <Row className='border-top border-warning border-3 footerStyleHome align-items-center'>
+                            <Col xs={9} className="">
+                                <p className='text-light footerlogo ps-4 pt-3 d-inline-block'>
+                                    Food<span className='text-warning'>i</span>
+                                </p>
+                                <small className='ps-4'>@ 2022 Foodi. All Rights Reserved</small>
 
-                    <Col className='icons text-center'>
-                        <FontAwesomeIcon icon={faUtensils} size="3x" />
-                        <p className='pt-3'>Variety Options</p>
-                    </Col>
+                            </Col>
 
-                    <Col className='icons text-center'>
-                        <FontAwesomeIcon icon={faHamburger} size="3x" />
-                        
-                        <p className='pt-3'>Delicious Recipes</p>
-                    </Col>
-                </Row>
+                            <Col className='text-end'>
+                                <i className="bi bi-instagram"></i>
+                                <i className="bi bi-facebook" style={{ color: 'rgb(0, 132, 255)' }}></i>
+                                <i className="bi bi-youtube" style={{ color: 'red' }}></i>
+                            </Col>
+                        </Row>
+                    </Container>
+
+                </footer>
+                
             </Container>
         </>
     )

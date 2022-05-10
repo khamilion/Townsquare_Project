@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom'
 import BounceLoader from "react-spinners/BounceLoader";
 
 function Dinner() {
-    const { posts, isLoading } = useSelector(selectPostsInfo);
+    const { recipe, isLoading } = useSelector(selectPostsInfo);
 
   //set up the dispatch hook in order to call any action from any reducer
   const dispatch = useDispatch()
@@ -37,7 +37,7 @@ function Dinner() {
   },[]);
 
   // display the recipes if isloading is false and posts is true
-  if (!isLoading && posts) {
+  if (!isLoading && recipe) {
     return (
         <>
             <Header />
@@ -58,7 +58,7 @@ function Dinner() {
 
                 <Row sm={2} md={3} xl={4} className='gy-3 gx-3'>
 
-                    {posts && posts.map((doc) =>
+                    {recipe && recipe.map((doc) =>
                         <>
                             <Col key={doc.id} className="px-2">
 
@@ -73,7 +73,7 @@ function Dinner() {
 
                                         
                                         <div className=' d-flex align-items-center flex-grow-1 text-center justify-content-center'>
-                                            <Link to={`/dinner/${doc.id}`} style={{ textDecoration: 'none', color: 'white'}}>
+                                            <Link to={`/dinner/dinner/${doc.id}`} style={{ textDecoration: 'none', color: 'white'}}>
                                                 <Card.Title className=' py-5 fs-3'>
                                                     {doc.name}
                                                 </Card.Title>
