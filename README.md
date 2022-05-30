@@ -8,6 +8,22 @@ User can view a variety of breakfast, lunch or dinner recipes. User can create a
 
 React, Redux, Bootstrap, Nodejs, Express, Firebase
 
+# Images
+<img width="1155" alt="Sign up" src="https://user-images.githubusercontent.com/70460601/171066033-58f20fe2-09c6-4ff2-ad94-e8c8a8eba0c9.png">
+<img width="1155" alt="Sign up" src="https://user-images.githubusercontent.com/70460601/171066054-59c69d86-abdf-466e-8a92-e6b114cc6165.png">
+
+<img width="1155" alt="All Recipes" src="https://user-images.githubusercontent.com/70460601/171066105-a30bb656-6351-4440-92b8-962a70b83c9e.png">
+
+<img width="1154" alt="Home" src="https://user-images.githubusercontent.com/70460601/171066112-8b25e98c-36fe-48ea-bddd-81b6bf0a2da9.png">
+
+<img width="1156" alt="Recipe Details" src="https://user-images.githubusercontent.com/70460601/171066118-fac9d127-9a52-4a93-97d6-f2a6856a4466.png">
+
+<img width="1153" alt="Upload Form" src="https://user-images.githubusercontent.com/70460601/171066125-42751f94-a549-4121-95f0-b4a66b5f4dfe.png">
+
+<img width="1155" alt="Profile Page" src="https://user-images.githubusercontent.com/70460601/171066133-bcae7e03-d101-4589-9e16-d949d6ca4bc0.png">
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
