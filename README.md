@@ -1,3 +1,11 @@
+#Project Description
+Food Blogging website. 
+
+User can view a variety of breakfast, lunch or dinner recipes. User can create a profile and save their favorite meals or add meals of their own.
+
+#Technologies
+React, Redux, Bootstrap, Nodejs, Express, Firebase
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
