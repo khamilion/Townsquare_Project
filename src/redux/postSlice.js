@@ -11,7 +11,7 @@ export const getAllRecipes = createAsyncThunk(
     console.log(response.ok)
 
     let res = await response.json()
-    console.log("Object =>", res)
+    
 
     //if the response was not succesfull call the rejected action
     if (!response.ok) {
@@ -24,6 +24,38 @@ export const getAllRecipes = createAsyncThunk(
   }
 
 );
+
+export const uploadForm = createAsyncThunk(
+  'posts/upload-form',
+async (request, { rejectWithValue }) => {
+
+  const response = await fetch('/upload-form', {
+    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    body: JSON.stringify(request)
+  })
+
+  console.log(response)
+  console.log(response.ok)
+
+  let res = await response.json()
+  
+
+  //if the response was not succesfull call the rejected action
+  if (!response.ok) {
+    return rejectWithValue(res)
+  }
+  else {
+    return res
+  }
+
+}
+
+);
+
+
+
+
 
 export const getRecipe = createAsyncThunk(
   'posts/getRecipe',
@@ -91,7 +123,7 @@ export const postSlice = createSlice({
     addNewPost: (state, action) => {
         console.log(current(state))
         console.log(action.payload);
-    }
+    },
   },
   extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
@@ -160,17 +192,58 @@ export const postSlice = createSlice({
       console.log('state when getRecipe is rejected:')
        console.log(current(state)) 
     })
+
+
+     //uploadForm reducers
+
+    //pending
+    builder.addCase(uploadForm.pending, (state, action) => {
+      state.isLoading = true
+
+      console.log('state when uploadForm is pending')
+      console.log(current(state))
+    })
+
+    //fulfilled
+    builder.addCase(uploadForm.fulfilled, (state, action) => {
+      state.isLoading = false
+
+      //assign the post state
+  
+      
+
+      //when fulfilled clear the errors field
+      state.error = null
+      
+       console.log('state when uploadForm is fulfilled')
+      console.log(current(state))
+    })
+
+    //rejected
+    builder.addCase(uploadForm.rejected, (state, action) => {
+      state.isLoading = false
+
+      state.error = action.payload
+
+      console.log('state when uploadForm is rejected:')
+       console.log(current(state)) 
+    })
+
+     
+
    }
 })
 
 // Action creators are generated for each case reducer function
-export const { addNewPost } = postSlice.actions
+   
+export const { addNewPost} = postSlice.actions
 
 export default postSlice.reducer
 
 const selectRecipe = state => state.posts.recipe
  const selectPosts = state => state.posts.posts
  const selectLoading = state => state.posts.isLoading
+
 
 export const selectPostsInfo = createSelector([selectPosts, selectLoading, selectRecipe], (posts, isLoading, recipe) => {
     return {

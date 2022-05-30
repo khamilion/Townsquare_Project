@@ -1,14 +1,17 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import {useDispatch, useSelector} from 'react-redux'
-import { getAllRecipes, selectPostsInfo } from '../redux/postSlice'
-
+import { selectPostsInfo } from '../redux/postSlice'
+import { selectUserInfo, setUsersTable} from '../redux/userSlice'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Button from 'react-bootstrap/Button'
+import Tooltip from 'react-bootstrap/Tooltip'
 
 import { Link } from 'react-router-dom'
 
@@ -18,15 +21,23 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 import Header from './layout/Header'
 import Footer from './layout/Footer';
-import Recipes from './layout/Recipes'
 import BounceLoader from "react-spinners/BounceLoader";
 
 
 function AllRecipes() {
   const { posts, isLoading } = useSelector(selectPostsInfo);
+  const { user, isAuthenticated, saved} = useSelector(selectUserInfo)
+
+  let user_id = null
+
+  //get the user id from the current user
+  if (user) {
+    user_id = user.uid
+  }
 
   //set up the dispatch hook in order to call any action from any reducer
   const dispatch = useDispatch()
+
 
     //checkbox states
     const [vegetarian, setVegetarian] = useState(false)
@@ -34,20 +45,6 @@ function AllRecipes() {
     const [pescatarian, setPescatarian] = useState(false)
     const [glutenFree, setGlutenFree] = useState(false)
   
-
-  useEffect(() => {
-    //console.log('use Effect Called on initial render');
-
-    //Dispatch the action to get all recipes from database
-    dispatch(getAllRecipes())
-      //dispatched thunk has an unwrap property which can be called to extract the payload of a fulfilled action or to throw either the error
-      .unwrap()
-      .catch((error) => {
-        // handle error here
-        alert("Please try again: " + error)
-      })
-
-  },[]);
 
   //when  the user clicks on the checkbox, this func
   const filter = (mealType, e) => {
@@ -90,7 +87,26 @@ function AllRecipes() {
     }
 }
 
+  //After the user clicks the save button, this function expression is called
+  const save = (meal_id, meal_type, action) =>{
+    
 
+    //dispatch the action to save the recipe to the users table
+    dispatch(setUsersTable({meal_id: meal_id,
+                              meal_type: meal_type,
+                                  field: 'saved_recipes',
+                                      user_id: user_id,
+                                          action: action}))
+        //dispatched thunk has an unwrap property which can be called to extract the payload of a fulfilled action or to throw either the error
+        .unwrap()
+        .then(() => {
+
+        })
+        .catch((error) => {
+            // handle error here
+            alert("Please try again, " + error)
+        })
+}
 
   // display the recipes if isloading is false and posts is true
   if (!isLoading && posts) {
@@ -108,7 +124,7 @@ function AllRecipes() {
               </Col>
 
               <Col className=" text-end">
-
+              {/*
                 <DropdownButton id="dropdown-item-button" title="Selections" drop="start">
 
                   <Dropdown.ItemText>
@@ -148,7 +164,7 @@ function AllRecipes() {
                   </Dropdown.ItemText>
 
                 </DropdownButton>
-
+    */}
               </Col>
             </Row>
           </Container>
@@ -167,13 +183,34 @@ function AllRecipes() {
                     <Card.Img src={doc.image} alt={doc.name} style={{ height: '400px', objectFit: 'cover' }} />
 
                     <Card.ImgOverlay className='foodCardImgOv d-flex flex-column p-1'>
-                      <div>
-                        <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
-                      </div>
+                      {isAuthenticated
+                        ? <div>
+                          {saved.includes(doc.id)
+                            ? <button className="btn " onClick={(e) => save(doc.id, 'breakfast', 'remove')}>
+                              <i className="bi bi-heart-fill text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </button>
+                            : <button className="btn " onClick={(e) => save(doc.id, 'breakfast', 'save')}>
+                              <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </button>}
+                        </div>
+                        : <div>
+                          <OverlayTrigger
+                            placement={'top'}
+                            overlay={
+                              <Tooltip id={`savedTooltip`}>
+                                login to save!
+                              </Tooltip>
+                            }
+                          >
+                            <Button variant="">
+                              <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </Button>
+                          </OverlayTrigger>
+                        </div>}
 
 
                       <div className=' d-flex align-items-center flex-grow-1 text-center justify-content-center'>
-                        <Link to={`/breakfast/breakfast/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                        <Link to={`/breakfast/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                           <Card.Title className=' py-5 fs-3'>
                             {doc.name}
                           </Card.Title>
@@ -196,13 +233,34 @@ function AllRecipes() {
                     <Card.Img src={doc.image} alt={doc.name} style={{ height: '400px', objectFit: 'cover' }} />
 
                     <Card.ImgOverlay className='foodCardImgOv d-flex flex-column p-1'>
-                      <div>
-                        <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
-                      </div>
+                    {isAuthenticated
+                        ? <div>
+                          {saved.includes(doc.id)
+                            ? <button className="btn " onClick={(e) => save(doc.id, 'lunch', 'remove')}>
+                              <i className="bi bi-heart-fill text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </button>
+                            : <button className="btn " onClick={(e) => save(doc.id, 'lunch', 'save')}>
+                              <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </button>}
+                        </div>
+                        : <div>
+                          <OverlayTrigger
+                            placement={'top'}
+                            overlay={
+                              <Tooltip id={`savedTooltip`}>
+                                login to save!
+                              </Tooltip>
+                            }
+                          >
+                            <Button variant="">
+                              <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </Button>
+                          </OverlayTrigger>
+                        </div>}
 
 
                       <div className=' d-flex align-items-center flex-grow-1 text-center justify-content-center'>
-                        <Link to={`/breakfast/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                        <Link to={`/lunch/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                           <Card.Title className=' py-5 fs-3'>
                             {doc.name}
                           </Card.Title>
@@ -225,13 +283,34 @@ function AllRecipes() {
                     <Card.Img src={doc.image} alt={doc.name} style={{ height: '400px', objectFit: 'cover' }} />
 
                     <Card.ImgOverlay className='foodCardImgOv d-flex flex-column p-1'>
-                      <div>
-                        <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
-                      </div>
+                    {isAuthenticated
+                        ? <div>
+                          {saved.includes(doc.id)
+                            ? <button className="btn " onClick={(e) => save(doc.id, 'dinner', 'remove')}>
+                              <i className="bi bi-heart-fill text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </button>
+                            : <button className="btn " onClick={(e) => save(doc.id, 'dinner', 'save')}>
+                              <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </button>}
+                        </div>
+                        : <div>
+                          <OverlayTrigger
+                            placement={'top'}
+                            overlay={
+                              <Tooltip id={`savedTooltip`}>
+                                login to save!
+                              </Tooltip>
+                            }
+                          >
+                            <Button variant="">
+                              <i className="bi bi-heart text-danger align-self-start" style={{ fontSize: '1.5rem' }}></i>
+                            </Button>
+                          </OverlayTrigger>
+                        </div>}
 
 
                       <div className=' d-flex align-items-center flex-grow-1 text-center justify-content-center'>
-                        <Link to={`/breakfast/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                        <Link to={`/dinner/${doc.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                           <Card.Title className=' py-5 fs-3'>
                             {doc.name}
                           </Card.Title>

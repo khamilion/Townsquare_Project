@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserInfo, signUp, setEmail, setPassword, setFirst, setLast } from '../../redux/userSlice'
 import { useNavigate, Link } from 'react-router-dom'
@@ -181,6 +181,7 @@ function SignUp() {
           </div>
 
         </Form>
+        
       </div>
     </Container>
 

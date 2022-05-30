@@ -3,9 +3,9 @@ import React from 'react';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { Navbar } from 'react-bootstrap';
+
 import NavComponent from './NavComponent';
-import{ useNavigate, Link } from 'react-router-dom'
+import{ useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,16 +32,16 @@ const Header = () => {
       console.log('user' + user, 'auth:'+ isAuthenticated)
     //logout the user
     const logoutUser = (e) => {
-        e.preventDefault()
-        console.log("Before dispatch")
+        
+        
         //dispatch the action to fetch the logout endpoint
         dispatch(logout())
         //dispatched thunk has an unwrap property which can be called to extract the payload of a fulfilled action or to throw either the error
         .unwrap()
         .then(() => {
           //if the there are no errors navigate to the home page
-          //navigate('/Home')
-          console.log("after .then")
+          navigate('/home')
+          
       })
         .catch((error) => {
           // handle error here
@@ -60,13 +60,13 @@ const Header = () => {
                         
                             <div className='pt-3'>
                                     {isAuthenticated 
-                                     ? <Button variant='primary' className='text-dark rounded-pill' size='lg' onClick={() => navigate('/')}> My Profile</Button>
+                                     ? <Button variant='primary' className='text-dark rounded-pill' size='lg' onClick={() => navigate('/profile')}> My Profile</Button>
                                      : <Button variant='danger' className='text-dark rounded-pill' size='lg' onClick={() => navigate('/sign-up')}> Create Account</Button>}
                             </div>
                     </Col>
 
                     <Col xs={8}>
-                        <p className='text-light  mb-0' style={{ fontSize: '60px' }}>
+                        <p className='text-light  mb-0' style={{ fontSize: '70px' }}>
                             Food<span className='text-warning'>i</span>
                         </p>
                     </Col>

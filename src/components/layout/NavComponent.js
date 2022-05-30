@@ -10,7 +10,7 @@ function NavComponent() {
 
         <Container fluid className='justify-content-center text-center navBarStyle d-flex'>
 
-            <Navbar variant="light" expand="sm" className=' fs-5 '>
+            <Navbar variant="light" expand="sm" className=' fs-3 '>
                 <Container fluid>
 
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -2,28 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Recipes from './layout/Recipes'
 import Header from './layout/Header';
 
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllRecipes, selectPostsInfo } from '../redux/postSlice';
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import { Navbar } from 'react-bootstrap'
 import Carousel from 'react-bootstrap/Carousel'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLeaf, faUtensils, faHamburger } from '@fortawesome/free-solid-svg-icons'
-
-
-import NavComponent from './layout/NavComponent'
-import{ useNavigate, Link } from 'react-router-dom'
+import{ useNavigate } from 'react-router-dom'
 
 import frenchToast from '../images/frenchToast.jpeg'
 import burrito from '../images/vegetarian-bean-and-rice-burrito-recipe.jpg'
 import shrimpFajitas from '../images/Shrimp-Fajitas.jpg'
-import Footer from './layout/Footer';
+
 
 function Home() {
 
@@ -31,8 +22,7 @@ function Home() {
 
     }, []);
 
-    //A selector is a function that takes the entire Redux store state as its argument, reads some value from the state, and returns that result.
-   // const {user} = useSelector(selectUserInfo)
+    const navigate = useNavigate();
 
     return (
         <>
@@ -74,8 +64,8 @@ function Home() {
                                                     Click below to view ingredients.
                                                 </Card.Text>
 
-                                                <button type='button' className='breakfastButton'>Go to recipe</button>
-                                                <Button variant="outline-dark ms-2">View all breakfast</Button>
+                                                <button type='button' className='breakfastButton' onClick={() => navigate('/breakfast/french_toast')}>Go to recipe</button>
+                                                <Button variant="outline-dark ms-2" onClick={() => navigate('/breakfast')}>View all breakfast</Button>
                                             </Card.Body>
                                         </Card>
 
@@ -121,8 +111,8 @@ function Home() {
                                                     Click below to view ingredients.
                                                 </Card.Text>
 
-                                                <Button variant="success">Go to recipe</Button>
-                                                <Button variant="outline-dark ms-2">View all lunch</Button>
+                                                <Button variant="success" onClick={() => navigate('/lunch/bean_and_rice_burrito')}>Go to recipe</Button>
+                                                <Button variant="outline-dark ms-2" onClick={() => navigate('/lunch')}>View all lunch</Button>
                                             </Card.Body>
                                         </Card>
 
@@ -165,8 +155,8 @@ function Home() {
                                                     Click below to view ingredients.
                                                 </Card.Text>
 
-                                                <Button variant="warning">Go to recipe</Button>
-                                                <Button variant="outline-dark ms-2">View all dinner</Button>
+                                                <Button variant="warning" onClick={() => navigate('/dinner/shrimp_fajitas')}>Go to recipe</Button>
+                                                <Button variant="outline-dark ms-2" onClick={() => navigate('/dinner')} >View all dinner</Button>
                                             </Card.Body>
                                         </Card>
 

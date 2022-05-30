@@ -46,6 +46,7 @@
 .navBarStyle{
   font-family: 'Satisfy', 'sans-serif',cursive;
   background-color:rgb(253, 207, 55);
+  
 }
 
 
@@ -55,6 +56,8 @@
   font-size: 30px;
   opacity: 1;
 }
+
+
 
 .formHdr{
   letter-spacing: .2rem;
@@ -96,7 +99,7 @@
   border-top: solid 4px;
   font-family:'Rockwell', 'Times New Roman', Times, serif;
 
-  background-color: rgba(211, 211, 211, 0.386);
+  
 }
 
 .breakfastTheme{
@@ -174,4 +177,57 @@ i{
 
 .recipeDetailsIcon{
   padding-top: 7px;
+}
+
+.profileButton{
+  background-color: rgb(253, 207, 55);
+border-color: rgb(253, 207, 55);
+padding:5px;
+text-align: center;
+transition-duration: 0.4s;
+font-size: 15px;
+  font-family:'Rockwell', 'Times New Roman', Times, serif;
+}
+
+.profileButton:active {
+  background-color: lightgray;
+  
+}
+
+.profileTop{
+  font-size: 30px;
+  font-family: 'Merienda', cursive;
+}
+
+.profileSub{
+  font-size: 15px;
+  font-family:'Rockwell', 'Times New Roman', Times, serif;
+}
+.profilePic{
+  border:rgb(12, 14, 41) solid 3px;
+  border-radius: 50%;
+ 
+  color: rgb(12, 14, 41);
+  font-size: 60px;
+  font-family:'Rockwell', 'Times New Roman', Times, serif;
+  height: 150px;
+  width: 150px;
+  background-color: rgba(211, 211, 211, 0.434)
+}
+
+.uploadBtn{
+  font-family:'Rockwell', 'Times New Roman', Times, serif;
+}
+.uploadForm{
+  letter-spacing: .2rem;
+  font-family:'Rockwell', 'Times New Roman', Times, serif;
+  font-size: 23px;
+
+}
+.modalStyle{
+  background-color: rgba(211, 211, 211, 0.333);
+}
+.modalHdr{
+  background-color:rgb(12, 14, 41); 
+  font-family:'Rockwell', 'Times New Roman', Times, serif;
 }

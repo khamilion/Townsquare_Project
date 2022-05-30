@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
-import { create } from 'lodash';
 import { createSelector } from 'reselect'
 
 export const getUserDetails = createAsyncThunk(
@@ -9,7 +8,7 @@ export const getUserDetails = createAsyncThunk(
         const res = await fetch('/user-auth')
 
         let rjson = await res.json()
-        console.log(rjson)
+        
 
       //if the response was not succesful call the rejected action
       if (!res.ok) {
@@ -24,10 +23,63 @@ export const getUserDetails = createAsyncThunk(
 
 );
 
+export const getUsersTable = createAsyncThunk(
+  'user/get-users-table',
+async (request, { rejectWithValue }) => {
+
+  const response = await fetch('/get-users-table', {
+    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    body: JSON.stringify(request)
+  })
+
+  console.log(response)
+  console.log(response.ok)
+
+  let res = await response.json()
+  
+
+  //if the response was not successful call the rejected action
+  if (!response.ok) {
+    return rejectWithValue(res)
+  }
+  else {
+    return res
+  }
+
+});
+
+//fetch the users table to add user data
+export const setUsersTable = createAsyncThunk(
+  'user/set-users-table',
+async (request, { rejectWithValue }) => {
+
+  const response = await fetch('/set-users-table', {
+    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    body: JSON.stringify(request)
+  })
+
+  console.log(response)
+  console.log(response.ok)
+
+  let res = await response.json()
+  
+
+  //if the response was not successful call the rejected action
+  if (!response.ok) {
+    return rejectWithValue(res)
+  }
+  else {
+    return request
+  }
+
+});
+
 //logout a user
 export const logout = createAsyncThunk(
   'user/logout', async (request, { rejectWithValue }) => {
-    console.log("button pushed")
+    
     //fetch the logout endpoint
     const response = await fetch('/logout')
 
@@ -52,7 +104,7 @@ export const logout = createAsyncThunk(
 export const signUp = createAsyncThunk(
   'user/sign-up',
     async (request, { rejectWithValue }) => {
-        console.log(`sign up thunk: ${JSON.stringify(request)}`);
+        
 
         //fetch the sign-up endpoint
         const response = await fetch('/sign-up', {
@@ -65,7 +117,7 @@ export const signUp = createAsyncThunk(
         console.log(response.ok)
 
         let res = await response.json()
-
+        console.log('find res', res)
         //if the response was not succesfull call the rejected action
         if(!response.ok){
           return rejectWithValue(res)
@@ -81,7 +133,7 @@ export const signUp = createAsyncThunk(
 export const login = createAsyncThunk(
   'user/login',
     async (request, { rejectWithValue }) => {
-        console.log(`login up thunk: ${JSON.stringify(request)}`);
+        
 
         //fetch the login endpoint
         const response = await fetch('/login', {
@@ -110,6 +162,8 @@ export const login = createAsyncThunk(
 //Initial state
 const initialState = {
   user: null,
+  original: null,
+  saved: null,
   userCredentials: {
     email: '',
     password: '',
@@ -118,6 +172,7 @@ const initialState = {
   },
   userErrors: null,
   isUserLoading: true,
+  isUserTableLoading: true,
   isAuthenticated: false,
 }
 
@@ -152,9 +207,10 @@ export const userSlice = createSlice({
     })
     builder.addCase(getUserDetails.fulfilled, (state, action) => {
       state.isUserLoading = false
-      console.log(action.payload)
+      
       state.user = action.payload
       state.isAuthenticated = true
+
        console.log('state when userDetails is fulfilled')
       console.log(current(state)) 
     })
@@ -163,6 +219,7 @@ export const userSlice = createSlice({
       state.userErrors = action.error
       state.error = action.error
       state.isAuthenticated = false
+
       console.log('state when userDetails is rejected')
        console.log(current(state))
     })
@@ -173,6 +230,7 @@ export const userSlice = createSlice({
     builder.addCase(signUp.pending, (state, action) => {
       state.isUserLoading = true
       state.isAuthenticated = false
+      //state.isUserTableLoading = true
 
       console.log('state when sign-up is pending')
       console.log(current(state))
@@ -182,6 +240,8 @@ export const userSlice = createSlice({
     builder.addCase(signUp.fulfilled, (state, action) => {
       state.isUserLoading = false
       state.isAuthenticated = true
+      
+
 
       //assign the user state
       state.user = action.payload
@@ -197,6 +257,7 @@ export const userSlice = createSlice({
     builder.addCase(signUp.rejected, (state, action) => {
       state.isUserLoading = false
       state.isAuthenticated = false
+      
 
       state.userErrors = action.payload
       state.error = action.payload
@@ -211,6 +272,7 @@ export const userSlice = createSlice({
        builder.addCase(login.pending, (state, action) => {
         state.isUserLoading = true
         state.isAuthenticated = false
+        
 
          console.log('state when login is pending')
         console.log(current(state))
@@ -220,8 +282,10 @@ export const userSlice = createSlice({
       builder.addCase(login.fulfilled, (state, action) => {
         state.isUserLoading = false
         state.isAuthenticated = true
+        
 
         state.user = action.payload
+
 
         //when fulfilled clear the userErrors field
         state.userErrors = null
@@ -234,6 +298,7 @@ export const userSlice = createSlice({
       builder.addCase(login.rejected, (state, action) => {
         state.isUserLoading = false
         state.isAuthenticated = false
+       
 
         state.userErrors = action.payload
         state.error = action.payload
@@ -253,56 +318,135 @@ export const userSlice = createSlice({
         console.log(current(state))
       })
 
-      //fulfilled
-      builder.addCase(logout.fulfilled, (state, action) => {
-        state.isUserLoading = false
-        state.isAuthenticated = false
+    //fulfilled
+    builder.addCase(logout.fulfilled, (state, action) => {
+      state.isUserLoading = false
+      state.isAuthenticated = false
 
-        //update the user's credentials
-        state.user = action.payload
+      //update the user
+      state.user = action.payload
+      
+      //clear the user credentials
+      state.userCredentials.email = ''
+      state.userCredentials.first = ''
+      state.userCredentials.last = ''
+      state.userCredentials.password = ''
 
-        //clear the user credentials
-        state.userCredentials.email = ''
-        state.userCredentials.first = ''
-        state.userCredentials.last = ''
-        state.userCredentials.password = ''
+      //when fulfilled clear the userErrors field
+      state.userErrors = null
 
-        //when fulfilled clear the userErrors field
-        state.userErrors = null
-        
-         console.log('state when logout is fulfilled')
-        console.log(current(state))
-      })
+      console.log('state when logout is fulfilled')
+      console.log(current(state))
+    })
 
-      //rejected.
-      builder.addCase(logout.rejected, (state, action) => {
-        state.isUserLoading = false
-        state.isAuthenticated = true
+    //rejected.
+    builder.addCase(logout.rejected, (state, action) => {
+      state.isUserLoading = false
+      state.isAuthenticated = true
 
-        //assign the errors
-        state.userErrors = action.payload
-        state.error = action.payload
-  
-        console.log('state when logout is rejected:')
-         console.log(current(state)) 
-      })
+      //assign the errors
+      state.userErrors = action.payload
+      state.error = action.payload
+
+      console.log('state when logout is rejected:')
+      console.log(current(state))
+    })
+
+    //getUsersTable reducers
+
+    //pending
+    builder.addCase(getUsersTable.pending, (state, action) => {
+      state.isUserTableLoading = true
+
+      console.log('state when getUsersTable is pending')
+      console.log(current(state))
+    })
+
+    //fulfilled
+    builder.addCase(getUsersTable.fulfilled, (state, action) => {
+      state.isUserTableLoading = false
+
+      //assign the saved and original to the state
+      state.saved = action.payload.saved_recipes
+      state.original = action.payload.original_posts
+
+      //when fulfilled clear the errors field
+      state.error = null
+
+      console.log('state when getUsersTable is fulfilled')
+      console.log(current(state))
+    })
+
+    //rejected
+    builder.addCase(getUsersTable.rejected, (state, action) => {
+      state.isUserTableLoading = false
+
+      state.error = action.payload
+
+      console.log('state when getUsersTable is rejected:')
+      console.log(current(state))
+    })
 
 
+        //setUsersTable reducers
+
+    //pending
+    builder.addCase(setUsersTable.pending, (state, action) => {
+      state.isUserTableLoading = true
+
+      console.log('state when setUsersTable is pending')
+      console.log(current(state))
+    })
+
+    //fulfilled
+    builder.addCase(setUsersTable.fulfilled, (state, action) => {
+      state.isUserTableLoading = false
+      if (action.payload.action != 'remove'){
+          state.saved.push(action.payload.meal_id)
+      }
+      else{
+        let index = state.saved.indexOf(action.payload.meal_id)
+        state.saved.splice(index, 1)
+      }
+
+      
+      //when fulfilled clear the errors field
+      state.error = null
+
+      console.log('state when setUsersTable is fulfilled')
+      console.log(current(state))
+    })
+
+    //rejected
+    builder.addCase(setUsersTable.rejected, (state, action) => {
+      state.isUserTableLoading = false
+
+      state.error = action.payload
+
+      console.log('state when setUsersTable is rejected:')
+      console.log(current(state))
+    })
   }
 })
 
+const selectUserSaved = state => state.user.saved
+const selectUserOriginal = state => state.user.original
 const selectUser = state => state.user.user
 const selectUserLoading = state => state.user.isUserLoading
+const selectUserTableLoading = state => state.user.isUserTableLoading
 const selectUserCredentials = state => state.user.userCredentials
 const selectUserAuth = state => state.user.isAuthenticated
 
 //selector
-export const selectUserInfo = createSelector([selectUser, selectUserLoading, selectUserCredentials, selectUserAuth], (user, isUserLoading, userCredentials, isAuthenticated) => {
+export const selectUserInfo = createSelector([selectUser, selectUserLoading, selectUserCredentials, selectUserAuth, selectUserSaved, selectUserOriginal, selectUserTableLoading], (user, isUserLoading, userCredentials, isAuthenticated, saved, original, isUserTableLoading) => {
   return {
     user,
     isUserLoading,
     userCredentials,
-    isAuthenticated
+    isAuthenticated,
+    saved,
+    original,
+    isUserTableLoading
   }
 })
 
