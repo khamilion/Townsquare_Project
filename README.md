@@ -1,9 +1,11 @@
-#Project Description
+# Project Description
+
 Food Blogging website. 
 
 User can view a variety of breakfast, lunch or dinner recipes. User can create a profile and save their favorite meals or add meals of their own.
 
-#Technologies
+# Technologies
+
 React, Redux, Bootstrap, Nodejs, Express, Firebase
 
 # Getting Started with Create React App
