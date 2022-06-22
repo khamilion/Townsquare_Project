@@ -2,11 +2,12 @@
 
 Food Blogging website. 
 
-User can view a variety of breakfast, lunch or dinner recipes. User can create a profile and save their favorite meals or add meals of their own.
+Provides a variety of recipes ranging from breakfast, lunch and dinner. The user can create their own profile, and save their favorite meals or upload meals of their own. Uses firebase authentication when the uses logs in or creates a profile.
+
 
 # Technologies
 
-React, Redux, Bootstrap, Nodejs, Express, Firebase
+React, Redux, Bootstrap, Nodejs, Express, Firebase Storage and Authentication
 
 # Images
 <img width="1155" alt="Sign up" src="https://user-images.githubusercontent.com/70460601/171066033-58f20fe2-09c6-4ff2-ad94-e8c8a8eba0c9.png">
