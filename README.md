@@ -2,7 +2,7 @@
 
 Food Blogging website. 
 
-Provides a variety of recipes ranging from breakfast, lunch and dinner. The user can create their own profile, and save their favorite meals or upload meals of their own. Uses firebase authentication when the uses logs in or creates a profile.
+Provides a variety of recipes ranging from breakfast, lunch and dinner. The user can create their own profile, and save their favorite meals or upload meals of their own. Uses firebase authentication when the user logs in or creates a profile.
 
 
 # Technologies
